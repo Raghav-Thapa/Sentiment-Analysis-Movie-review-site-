@@ -12,7 +12,7 @@ const SentimentList = () => {
   useEffect(() => {
     async function fetchSentiments() {
       try {
-        const response = await fetch('http://localhost:5000/sentiments');
+        const response = await fetch('http://localhost:5000/api/sentiment/sentiments');
         if (response.ok) {
           const data = await response.json();
           setPositiveSentiments(data.positiveSentiments);

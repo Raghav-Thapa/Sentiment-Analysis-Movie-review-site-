@@ -1,0 +1,59 @@
+.backgroundd{
+    background-color: rgba(0, 0, 0, 0.932);
+    height: 1510px;
+}
+.navv{
+    height: 90px;
+    background-color: black !important;
+}
+.logo{
+    height: 85px;
+    width: 95px;  
+    cursor: pointer;
+    border-radius: 550px;
+}
+
+.headertitle{
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 18px;
+    margin-right: 60px;
+    margin-left: 10px;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+.headertitlesignin{
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 17px;
+    margin-left: 550px;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.bannerimg{
+    width: 100%;
+    height: 300px;
+    padding: 30px;
+    border-radius: 30px;
+    opacity: 0.5;
+}
+
+.moviecard{
+    margin-top: 30px;
+    margin-left: 70px;
+    height: 300px;
+}
+.cardalign{
+    display: flex;
+}
+
+.cardimg{
+    height: 300px;
+}
+.textcolourr{
+    color: white;
+}

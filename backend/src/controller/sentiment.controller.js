@@ -4,6 +4,7 @@ dotenv.config();
 const SentimentResult = require('../models/sentiment.model');
 const { spawn } = require('child_process');
 const path = require('path');
+// const Movie = require('../models/movie.model');
 
 
 
@@ -12,7 +13,14 @@ class SentimentController {
     addSentiments = async (req, res, next) => {
         try{
             
-            const text = req.body.text;
+            // const text = req.body.text;
+            const { text, movieId } = req.body;
+
+            // const movie = await Movie.findById(movieId);
+
+            // if (!movie) {
+            //   return res.status(404).json({ error: 'Movie not found' });
+            // }
       
             // Run a Python script as a subprocess to make predictions
             const pythonProcess = spawn('python', [
@@ -35,12 +43,14 @@ class SentimentController {
                     const sentimentResult = new SentimentResult({
                       text,
                       sentiment: result,
+                      // movie: movie._id,
                     });
                     console.log(sentimentResult)
                     try {
                       await sentimentResult.save();
                       const responseObj = {
                         text: sentimentResult.text,
+                        // movie: movie.name,
                         sentiment: sentimentResult.sentiment,
                         timestamp: sentimentResult.timestamp,
                       };

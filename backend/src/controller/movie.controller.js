@@ -36,7 +36,7 @@ class MovieController {
           return item.filename;
         });
       }
- console.log(data)
+      console.log(data)
       if (typeof data.attributes === "string") {
         data.attributes = JSON.parse(data.attributes);
       }
@@ -70,6 +70,7 @@ class MovieController {
       next(exception);
     }
   };
+
   updateMovie = async (req, res, next) => {
     try {
       let data = req.body;
@@ -117,6 +118,7 @@ class MovieController {
       next(exception);
     }
   };
+  
   getMovieById = async (req, res, next) => {
     try {
       let movie = await this._svc.getMovieById(req.params.id)

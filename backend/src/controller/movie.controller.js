@@ -37,9 +37,10 @@ class MovieController {
         });
       }
       console.log(data)
-      if (typeof data.attributes === "string") {
-        data.attributes = JSON.parse(data.attributes);
-      }
+      
+      // if (typeof data.attributes === "string") {
+      //   data.attributes = JSON.parse(data.attributes);
+      // }
 
       let validated = await this._svc.movieValidate(data);
       validated.slug = slugify(validated.name, { lower: true });
@@ -47,14 +48,6 @@ class MovieController {
         validated.categories = null;
       } else {
         validated.categories = validated.categories.split(",");
-      }
-
-      if (validated.brand === "null") {
-        validated.brand = null;
-      }
-
-      if (validated.sellerId === "null") {
-        validated.sellerId = null;
       }
 
       validated.afterDiscount =

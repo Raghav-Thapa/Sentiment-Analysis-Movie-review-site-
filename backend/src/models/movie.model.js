@@ -28,11 +28,11 @@ const MovieSchema = new mongoose.Schema({
         images: {
             type: Array,
           },
-        sentimnet:{
-            type: mongoose.Types.ObjectId,
-            default: null,
-            ref: "SentimentResult"
-        }
+        // sentimnet:{
+        //     type: mongoose.Types.ObjectId,
+        //     default: null,
+        //     ref: "SentimentResult"
+        // }
 },{
     timestamps:true,
     autoInced:true

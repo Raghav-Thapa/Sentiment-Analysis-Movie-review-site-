@@ -45,8 +45,9 @@ class CategoryService {
     }
 
     getAllCount = async (filter = {}) => {
-        return await CategoryModel.count(filter)
+        return await CategoryModel.countDocuments(filter)
     }
+
     createCategory = async (data) => {
         try {
             let category = new CategoryModel(data);

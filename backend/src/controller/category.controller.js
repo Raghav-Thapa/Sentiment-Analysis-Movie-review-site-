@@ -66,9 +66,6 @@ class CategoryController{
             if(data.parent === 'NULL' || !data.parent){
                 data.parent = null;
             }
-            if(data.citys === 'NULL' || !data.citys){
-                data.citys = null;
-            }
 
             let validated = await this._svc.categoryValidate(data);
             validated.slug = slugify(validated.name, {lower: true, replacement :"-"})

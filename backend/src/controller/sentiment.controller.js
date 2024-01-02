@@ -4,7 +4,7 @@ dotenv.config();
 const SentimentResult = require('../models/sentiment.model');
 const { spawn } = require('child_process');
 const path = require('path');
-// const Movie = require('../models/movie.model');
+const Movie = require('../models/movie.model');
 
 
 

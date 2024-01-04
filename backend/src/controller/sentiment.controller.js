@@ -16,11 +16,11 @@ class SentimentController {
             // const text = req.body.text;
             const { text, movieId } = req.body;
 
-            // const movie = await Movie.findById(movieId);
+            const movie = await Movie.findById(movieId);
 
-            // if (!movie) {
-            //   return res.status(404).json({ error: 'Movie not found' });
-            // }
+            if (!movie) {
+              return res.status(404).json({ error: 'Movie not found' });
+            }
       
             // Run a Python script as a subprocess to make predictions
             const pythonProcess = spawn('python', [
@@ -43,14 +43,15 @@ class SentimentController {
                     const sentimentResult = new SentimentResult({
                       text,
                       sentiment: result,
-                      // movie: movie._id,
+                      moviename: movie.name,
+                      movie: movie._id,
                     });
                     console.log(sentimentResult)
                     try {
                       await sentimentResult.save();
                       const responseObj = {
                         text: sentimentResult.text,
-                        // movie: movie.name,
+                        moviename: movie.name,
                         sentiment: sentimentResult.sentiment,
                         timestamp: sentimentResult.timestamp,
                       };
@@ -74,6 +75,23 @@ class SentimentController {
         }
 
     }
+  
+      getSentimentsByMovie = async (req, res, next) => {
+          try {
+              const { movieId } = req.params;
+  
+              const sentiments = await SentimentResult.find({ movie: movieId });
+  
+              if (!sentiments) {
+                  return res.status(404).json({ error: 'No sentiments found for this movie' });
+              }
+  
+              return res.json(sentiments);
+          } catch (error) {
+              // Handle error
+          }
+      }
+  
 
     listSentiments = async (req, res, next) => {
         try{
@@ -90,6 +108,23 @@ class SentimentController {
         }
 
     }
+
+    updateSentiment = async (req, res, next) => {
+      try {
+          const { id } = req.params;
+          const { sentiment } = req.body;
+
+          const sentimentResult = await SentimentResult.findByIdAndUpdate(id, { sentiment }, { new: true });
+
+          if (!sentimentResult) {
+              return res.status(404).json({ error: 'Sentiment result not found' });
+          }
+
+          return res.json(sentimentResult);
+      } catch (error) {
+          next(error);
+      }
+  }
 
 
 }

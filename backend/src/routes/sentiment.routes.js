@@ -10,6 +10,8 @@ const sentimentCtrl = require('../controller/sentiment.controller')
 
 app.post('/predict', sentimentCtrl.addSentiments)
 app.get('/sentiments', sentimentCtrl.listSentiments)
+app.get('/sentiments/movie/:movieId', sentimentCtrl.getSentimentsByMovie);
+app.put('/sentiments/:id', sentimentCtrl.updateSentiment);
 
 
 

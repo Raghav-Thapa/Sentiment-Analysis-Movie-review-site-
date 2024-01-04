@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const sentimentResultSchema = new mongoose.Schema({
+  username: String,
   moviename: String,
   text: String,
   sentiment: String,

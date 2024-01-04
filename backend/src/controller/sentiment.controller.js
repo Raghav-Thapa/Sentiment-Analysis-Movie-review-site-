@@ -15,6 +15,8 @@ class SentimentController {
             
             // const text = req.body.text;
             const { text, movieId } = req.body;
+            const user = req.user;
+            // console.log(user)
 
             const movie = await Movie.findById(movieId);
 
@@ -41,6 +43,7 @@ class SentimentController {
             
                     // Save the sentiment analysis result to the database
                     const sentimentResult = new SentimentResult({
+                      username: user.name,
                       text,
                       sentiment: result,
                       moviename: movie.name,
@@ -51,6 +54,7 @@ class SentimentController {
                       await sentimentResult.save();
                       const responseObj = {
                         text: sentimentResult.text,
+                        username: user.name,
                         moviename: movie.name,
                         sentiment: sentimentResult.sentiment,
                         timestamp: sentimentResult.timestamp,

@@ -1,6 +1,7 @@
 const express = require ('express')
 const app = express.Router()
 const sentimentCtrl = require('../controller/sentiment.controller')
+const authCheck = require('../middleware/auth.middleware')
 
 // const uploadPath =(req,res,next) => {
 //     req.uploadPath ="./public/user"
@@ -8,10 +9,10 @@ const sentimentCtrl = require('../controller/sentiment.controller')
 
 // }
 
-app.post('/predict', sentimentCtrl.addSentiments)
-app.get('/sentiments', sentimentCtrl.listSentiments)
-app.get('/sentiments/movie/:movieId', sentimentCtrl.getSentimentsByMovie);
-app.put('/sentiments/:id', sentimentCtrl.updateSentiment);
+app.post('/predict',authCheck, sentimentCtrl.addSentiments)
+app.get('/sentiments',authCheck, sentimentCtrl.listSentiments)
+app.get('/sentiments/movie/:movieId',authCheck, sentimentCtrl.getSentimentsByMovie);
+app.put('/sentiments/:id',authCheck, sentimentCtrl.updateSentiment);
 
 
 

@@ -33,6 +33,7 @@ const authCheck = async(req, res, next) => {
                 next({status: 403, msg: "User does not exists."})
             }
             req.authUser = user;
+            req.user = user;
             next()
         }
 

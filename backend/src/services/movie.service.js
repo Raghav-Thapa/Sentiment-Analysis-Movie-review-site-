@@ -41,7 +41,7 @@ class MovieService {
     }
 
     getAllCount = async (filter={}) => {
-        return await MovieModel.count(filter);
+        return await MovieModel.countDocuments(filter);
     }
 
     createMovie = async(data) => {

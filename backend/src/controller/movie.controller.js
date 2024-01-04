@@ -41,14 +41,13 @@ class MovieController {
 
       let validated = await this._svc.movieValidate(data);
       validated.slug = slugify(validated.name, { lower: true });
+
       if (validated.categories === "null") {
         validated.categories = null;
       } else {
         validated.categories = validated.categories.split(",");
       }
 
-      validated.afterDiscount =
-        validated.price - (validated.price * validated.discount) / 100;
       let response = await this._svc.createMovie(validated);
       res.json({
         result: response,
@@ -74,10 +73,6 @@ class MovieController {
 
       data.images = [...movie.images, ...images];
 
-      if (typeof data.attributes === "string") {
-        data.attributes = JSON.parse(data.attributes);
-      }
-
       let validated = await this._svc.movieValidate(data);
 
       if (validated.categories === "null") {
@@ -86,16 +81,6 @@ class MovieController {
         validated.categories = validated.categories.split(",");
       }
 
-      if (validated.brand === "null") {
-        validated.brand = null;
-      }
-
-      if (validated.sellerId === "null") {
-        validated.sellerId = null;
-      }
-
-      validated.afterDiscount =
-        validated.price - (validated.price * validated.discount) / 100;
 
       let response = await this._svc.updateMovie(validated, req.params.id);
       res.json({

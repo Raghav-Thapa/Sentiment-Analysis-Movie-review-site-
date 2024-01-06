@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import SentimentAnalysis from './SentimentAnalysis';
 import ShowSentiment from './showSentiments';
-import { Container, Row, Image, Col,Card } from "react-bootstrap";
+import { Container, Row, Image, Col, Card } from "react-bootstrap";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const SentimentList = () => {
   const [positiveSentiments, setPositiveSentiments] = useState([]);
@@ -41,44 +43,56 @@ const SentimentList = () => {
 
 
   return (
-    
-      <Row style={{width:'1100px'}}>
 
-        <Col lg = {5} className='ms-5 mt-3 textcolourr'>
-        
-      <h4>Total positive reviews: ({positiveCount})</h4>
+    <Row style={{ width: '1100px' }}>
+
+      <Col lg={5} className='ms-5 mt-3 textcolourr'>
+
+        <h4>Total positive reviews: ({positiveCount})</h4>
+        <DropdownButton menuVariant='dark' variant='success' id="dropdown-basic-button" title="Positive Reviews">
+          {positiveSentiments.map((sentiment) => (
+            <Dropdown.Item style={{ marginBottom: '20px' }} key={sentiment._id} href="#/action-1"><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b>User name</b><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}</Dropdown.Item>
+           ))}
+        </DropdownButton>
+        {/*       
       <h5 style={{color:"green",marginTop:'40px'}}>Positive Reviews :</h5><br/>
       <ul style={{listStyle:'none'}}>
         {positiveSentiments.map((sentiment) => (
           <li style={{marginBottom:'20px'}} key={sentiment._id}><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b>User name</b><br/>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}</li>
         ))}
         
-      </ul>
-     
-        </Col>
+      </ul> */}
 
-        <Col lg={5} className='ms-5 mt-4 textcolourr'>
-        
-      <h4>Total negative reviews: ({negativeCount})</h4>
+      </Col>
+
+      <Col lg={5} className='ms-5 mt-4 textcolourr'>
+
+        <h4>Total negative reviews: ({negativeCount})</h4>
+
+        <DropdownButton menuVariant='dark' variant='danger' id="dropdown-basic-button" title="Negative Reviews">
+          {negativeSentiments.map((sentiment) => (
+            <Dropdown.Item style={{ marginBottom: '20px' }} key={sentiment._id} href="#/action-1"><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b>User name</b><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}   </Dropdown.Item>
+          ))}
+        </DropdownButton>
+        {/* 
       <h5 style={{color:"red",marginTop:'40px'}}>Negative Reviews : </h5><br/>
       <ul style={{listStyle:'none'}}>
         {negativeSentiments.map((sentiment) => (
           <li style={{marginBottom:'20px'}} key={sentiment._id}><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b> User name </b><br/>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}</li>
         ))}
+      </ul> */}
 
-     
-      </ul>
-       {/* Add SentimentAnalysis component and pass the update function */}
-       {/* <SentimentAnalysis onSentimentAnalysis={updateSentimentCounts} /> */}
-       {/* <showSentiment/> */}
-       {/* <ShowSentiment/> */}
-      
-        </Col>
+        {/* Add SentimentAnalysis component and pass the update function */}
+        {/* <SentimentAnalysis onSentimentAnalysis={updateSentimentCounts} /> */}
+        {/* <showSentiment/> */}
+        {/* <ShowSentiment/> */}
 
-      </Row>
-    
+      </Col>
 
-  
+    </Row>
+
+
+
   );
 }
 

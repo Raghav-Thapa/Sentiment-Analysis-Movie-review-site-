@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.movieCoverOverlap{
+    margin-top: -450px !important;
+    z-index: 1 !important;
+    margin-bottom: 100px;
+    position: absolute !important;
+}
+
+.bannerheight{
+    height: 500px !important;
+    opacity: 0.3 !important;
+}
+
+.moviecardd{
+    height: 370px !important;
+    box-shadow: 10px 10px 15px 7px;
+    opacity: 0.75;
+}
+
+.moviecardd:hover{
+    opacity: 0.85;
+}
+
+.cardimgg{
+    height: 370px !important;
+}
+
+.moviedetail{
+    margin-left: 400px;
+    margin-top: -15px;
+    opacity: 0.8;
+}
+
+.moviename{
+    font-family: 'Luckiest Guy';
+}
+
+.first-word{
+    color: whitesmoke;
+}
+.second-word{
+    color: #09b0e7;
+}

@@ -10,8 +10,8 @@ const authCheck = require('../middleware/auth.middleware')
 // }
 
 app.post('/predict',authCheck, sentimentCtrl.addSentiments)
-app.get('/sentiments',authCheck, sentimentCtrl.listSentiments)
-app.get('/sentiments/movie/:movieId',authCheck, sentimentCtrl.getSentimentsByMovie);
+app.get('/sentiments',sentimentCtrl.listSentiments)
+app.get('/sentiments/movie/:movieId',sentimentCtrl.getSentimentsByMovie);
 app.put('/sentiments/:id',authCheck, sentimentCtrl.updateSentiment);
 
 

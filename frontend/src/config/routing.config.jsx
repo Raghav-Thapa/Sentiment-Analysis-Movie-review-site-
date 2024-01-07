@@ -3,10 +3,14 @@ import HomePage from "../homepage"
 import HomePageLayout from "../homepage/home.layout"
 import SentimentAnalysis from "../components/SentimentAnalysis";
 import MovieReview from "../components/moviereview.page";
+import RegisterPage from "../auth/register.page";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 
 const Routing = () => {
     return (<>
+            <ToastContainer/>
             <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePageLayout/>}>
@@ -16,8 +20,11 @@ const Routing = () => {
 
                 </Route>
 
+                <Route path="/register" element={<RegisterPage/>} />
+
                 
             </Routes>
+           
             </BrowserRouter>
     </>)
 }

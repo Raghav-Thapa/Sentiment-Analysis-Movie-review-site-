@@ -14,8 +14,6 @@ app.get('/sentiments',sentimentCtrl.listSentiments)
 app.get('/sentiments/movie/:movieId',sentimentCtrl.getSentimentsByMovie);
 app.put('/sentiments/:id',authCheck, sentimentCtrl.updateSentiment);
 
-app.post('/analyze', authCheck, sentimentCtrl.analyzeMovieReviews);
-
 
 
 module.exports = app;

@@ -24,16 +24,6 @@
 }
 
 
-
-.headertitlesignin{
-    text-decoration: none;
-    color: whitesmoke;
-    font-size: 17px;
-    margin-left: 550px;
-    font-weight: bold;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-}
-
 .bannerimg{
     width: 100%;
     height: 350px;
@@ -58,3 +48,105 @@
 .textcolourr{
     color: white;
 }
+.topbar{
+    height: 60px;
+    background-color: #9d9ea2
+}
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.image{
+    margin-top: 10px;
+    width: 120px;
+    position: absolute;
+    z-index: 1;
+}
+.login{
+    justify-content: right;
+    display: flex;
+    font-size: 22px;
+    position: relative;
+}
+.btnstyle{
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 70vh;
+}
+
+.headertitle:hover, .btnstyle:hover{
+    color: #09b0e7 !important;
+}
+
+.active{
+    color: #09b0e7 !important;
+}
+
+.loginoverlay{
+    width: 50vw;
+    height: 20vw;
+    margin-top: -130px;
+    border-radius: 10px;
+    opacity: 0.97;
+    color: whitesmoke;
+    background-color: rgba(17, 17, 17, 0.877);
+    /* background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%); */
+}
+
+.vline{
+    border-left: 1px solid whitesmoke;
+    height: 125px;
+    margin-left: 10px;
+}
+
+.loginbutton{
+    background-color: #06b6d4;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    height: 35px;
+    border: none;
+    color: white;
+}
+
+.loginbutton:hover{
+    background-color: #048aa1;
+}
+
+.logintitle{
+    justify-content: center;
+}
+
+.signupbutton{
+    background-color: #228948;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    height: 35px;
+    border: none;
+    color: white;
+}
+
+.formatsignup{
+    text-align: center;
+    margin-top: 120px;
+    background-image: url("../../../assets/images/user.png")
+}
+
+.signupbutton:hover{
+    background-color: #045c24;
+}
+
+.signupimage{
+    background-image: url("../images/one.gif");
+    background-position: center;
+    background-size: cover;
+}
+
+svg.p-icon{
+    color: white;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
+    

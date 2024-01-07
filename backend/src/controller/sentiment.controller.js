@@ -6,12 +6,6 @@ const { spawn } = require('child_process');
 const path = require('path');
 const Movie = require('../models/movie.model');
 
-const axios = require('axios');
-const cheerio = require('cheerio');
-const Sentiment = require('sentiment');
-
-
-
 
 class SentimentController {
 
@@ -135,39 +129,6 @@ class SentimentController {
           next(error);
       }
   }
-
-  analyzeMovieReviews = async (req, res, next) => {
-    try {
-        const { imdbId } = req.body;
-
-        // Fetch the IMDB reviews page
-        const response = await axios(`https://www.imdb.com/title/${imdbId}/reviews`);
-
-        // Parse the page with Cheerio
-        const $ = cheerio.load(response.data);
-
-        // Select the review text elements
-        const reviewEls = $('.review-container .text');
-
-        // Initialize sentiment analyzer
-        const sentiment = new Sentiment();
-
-        // Analyze each review
-        const sentiments = reviewEls.map((i, el) => {
-            const reviewText = $(el).text();
-            const { score } = sentiment.analyze(reviewText);
-            return { reviewText, score };
-        }).get();
-
-        // Send the results
-        res.json(sentiments);
-    } catch (err) {
-      next(err);
-        }
-    }
-
-  
-
 
 }
 

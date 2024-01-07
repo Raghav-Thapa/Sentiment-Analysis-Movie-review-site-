@@ -1,0 +1,38 @@
+.userimg{
+    height: 250px;
+    width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    border-radius: 20px;
+}
+
+:root {
+    background-color:rgb(17 17 17); 
+}
+
+.backcolor{
+    background-color: rgba(17, 17, 17, 0.886);
+    color: whitesmoke;
+    margin-top: -20px;
+}
+
+.signupbtn{
+    background-color: #09b0e7 !important;
+    color: whitesmoke;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.signupbtn:active {
+    background-color: #08465b !important; 
+}
+
+
+
+
+
+
+

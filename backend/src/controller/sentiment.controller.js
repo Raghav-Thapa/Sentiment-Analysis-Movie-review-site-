@@ -6,136 +6,85 @@ const { spawn } = require('child_process');
 const path = require('path');
 const Movie = require('../models/movie.model');
 
+const axios = require('axios');
+const cheerio = require('cheerio');
+const Sentiment = require('sentiment');
+
+
 
 
 class SentimentController {
 
-  addSentiments = async (req, res, next) => {
-    try{
 
-        const text = req.body.text;
+    addSentiments = async (req, res, next) => {
+        try{
+            
+            // const text = req.body.text;
+            const { text, movieId } = req.body;
+            const user = req.user;
+            // console.log(user)
 
-        // Run a Python script as a subprocess to make predictions
-        const pythonProcess = spawn('python', [
-          path.join(__dirname, '../../predict.py'), // Path to Python script
-          JSON.stringify(text), // Pass inputData as a JSON string
-        ]);
+            const movie = await Movie.findById(movieId);
 
-        // Collect predictions from the Python script
-        let predictions = '';
-        pythonProcess.stdout.on('data', (data) => {
-          predictions += data.toString();
-        });
-
-        pythonProcess.on('close', async (code) => {
-            if (code === 0) {
-              try {
-                const result = JSON.parse(predictions);
-
-                // Save the sentiment analysis result to the database
-                const sentimentResult = new SentimentResult({
-                  text,
-                  sentiment: result,
-                });
-                console.log(sentimentResult)
-                try {
-                  await sentimentResult.save();
-                  const responseObj = {
-                    text: sentimentResult.text,
-                    sentiment: sentimentResult.sentiment,
-                    timestamp: sentimentResult.timestamp,
-                  };
-                  res.json(responseObj);
-                } catch (error) {
-                  res.status(500).json({ error: 'Error saving sentiment result' });
-                }
-
-              } catch (error) {
-                res.status(500).json({ error: 'Prediction failed' });
-              }
-            } else {
-              res.status(500).json({ error: 'Prediction process exited with an error' });
+            if (!movie) {
+              return res.status(404).json({ error: 'Movie not found' });
             }
-          });
-
-
-    }catch(exception){
-        console.log(exception)
-        next(exception)
-    }
-
-}
-
-
-    // addSentiments = async (req, res, next) => {
-    //     try{
-            
-    //         // const text = req.body.text;
-    //         const { text, movieId } = req.body;
-    //         const user = req.user;
-    //         // console.log(user)
-
-    //         const movie = await Movie.findById(movieId);
-
-    //         if (!movie) {
-    //           return res.status(404).json({ error: 'Movie not found' });
-    //         }
       
-    //         // Run a Python script as a subprocess to make predictions
-    //         const pythonProcess = spawn('python', [
-    //           path.join(__dirname, '../../predict.py'), // Path to Python script
-    //           JSON.stringify(text), // Pass inputData as a JSON string
-    //         ]);
+            // Run a Python script as a subprocess to make predictions
+            const pythonProcess = spawn('python', [
+              path.join(__dirname, '../../predict.py'), // Path to Python script
+              JSON.stringify(text), // Pass inputData as a JSON string
+            ]);
           
-    //         // Collect predictions from the Python script
-    //         let predictions = '';
-    //         pythonProcess.stdout.on('data', (data) => {
-    //           predictions += data.toString();
-    //         });
+            // Collect predictions from the Python script
+            let predictions = '';
+            pythonProcess.stdout.on('data', (data) => {
+              predictions += data.toString();
+            });
 
-    //         pythonProcess.on('close', async (code) => {
-    //             if (code === 0) {
-    //               try {
-    //                 const result = JSON.parse(predictions);
+            pythonProcess.on('close', async (code) => {
+                if (code === 0) {
+                  try {
+                    const result = JSON.parse(predictions);
             
-    //                 // Save the sentiment analysis result to the database
-    //                 const sentimentResult = new SentimentResult({
-    //                   username: user.name,
-    //                   text,
-    //                   sentiment: result,
-    //                   moviename: movie.name,
-    //                   movie: movie._id,
-    //                 });
-    //                 console.log(sentimentResult)
-    //                 try {
-    //                   await sentimentResult.save();
-    //                   const responseObj = {
-    //                     text: sentimentResult.text,
-    //                     username: user.name,
-    //                     moviename: movie.name,
-    //                     sentiment: sentimentResult.sentiment,
-    //                     timestamp: sentimentResult.timestamp,
-    //                   };
-    //                   res.json(responseObj);
-    //                 } catch (error) {
-    //                   res.status(500).json({ error: 'Error saving sentiment result' });
-    //                 }
+                    // Save the sentiment analysis result to the database
+                    const sentimentResult = new SentimentResult({
+                      username: user.name,
+                      text,
+                      sentiment: result,
+                      moviename: movie.name,
+                      movie: movie._id,
+                    });
+                    console.log(sentimentResult)
+                    try {
+                      await sentimentResult.save();
+                      const responseObj = {
+                        text: sentimentResult.text,
+                        username: user.name,
+                        moviename: movie.name,
+                        sentiment: sentimentResult.sentiment,
+                        timestamp: sentimentResult.timestamp,
+                      };
+                      res.json(responseObj);
+                    } catch (error) {
+                      res.status(500).json({ error: 'Error saving sentiment result' });
+                    }
             
-    //               } catch (error) {
-    //                 res.status(500).json({ error: 'Prediction failed' });
-    //               }
-    //             } else {
-    //               res.status(500).json({ error: 'Prediction process exited with an error' });
-    //             }
-    //           });
+                  } catch (error) {
+                    res.status(500).json({ error: 'Prediction failed' });
+                  }
+                } else {
+                  res.status(500).json({ error: 'Prediction process exited with an error' });
+                }
+              });
 
 
-    //     }catch(exception){
-    //         console.log(exception)
-    //         next(exception)
-    //     }
+        }catch(exception){
+            console.log(exception)
+            next(exception)
+        }
 
-    // }
+    }
   
       getSentimentsByMovie = async (req, res, next) => {
           try {
@@ -186,6 +135,38 @@ class SentimentController {
           next(error);
       }
   }
+
+  analyzeMovieReviews = async (req, res, next) => {
+    try {
+        const { imdbId } = req.body;
+
+        // Fetch the IMDB reviews page
+        const response = await axios(`https://www.imdb.com/title/${imdbId}/reviews`);
+
+        // Parse the page with Cheerio
+        const $ = cheerio.load(response.data);
+
+        // Select the review text elements
+        const reviewEls = $('.review-container .text');
+
+        // Initialize sentiment analyzer
+        const sentiment = new Sentiment();
+
+        // Analyze each review
+        const sentiments = reviewEls.map((i, el) => {
+            const reviewText = $(el).text();
+            const { score } = sentiment.analyze(reviewText);
+            return { reviewText, score };
+        }).get();
+
+        // Send the results
+        res.json(sentiments);
+    } catch (err) {
+      next(err);
+        }
+    }
+
+  
 
 
 }

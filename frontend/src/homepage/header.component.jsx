@@ -89,7 +89,7 @@ const [visible, setVisible] = useState(false);
         <Nav className="me-auto">
           <NavLink className='headertitle active' to="/">Home</NavLink>
           <NavLink className='headertitle' to="/movies">Movies</NavLink>
-          <NavLink className='headertitle' to="nowshowing">Now Showing</NavLink>
+          <NavLink className='headertitle' to="nowshowing">Genre</NavLink>
           {/* <NavLink className='headertitlesignin'>Sign In</NavLink> */}
           <Button className="btnstyle headertitle" label="Sign In" onClick={() => setVisible(true)} />
           <Dialog className="loginoverlay" draggable={false} visible={visible} onHide={() => setVisible(false)}>

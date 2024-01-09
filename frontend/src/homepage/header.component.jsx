@@ -54,7 +54,8 @@ const formik = useFormik({
                 localStorage.setItem("user", JSON.stringify(formattedData))
 
                 toast.success("Welcome to" + formattedData.role + " Portal !")
-                navigate("/" + formattedData.role)
+                navigate("/");
+                window.location.reload();
 
             } else {
                 toast.warning("Credentials does not match")
@@ -72,16 +73,22 @@ const formik = useFormik({
 // console.log(formik.values)
 const [visible, setVisible] = useState(false);
 
-// const dashboard = () => {
-//     let user = JSON.parse(localStorage.getItem("user"))
-//     let role = user.role
-//     navigate("/" + role)
-// }
+const dashboard = () => {
+    let user = JSON.parse(localStorage.getItem("user"))
+    let role = user.role
+    navigate("/" + role)
+}
 
-// const isLoggedIn = () => {
-//     // Check if the user is logged in based on the presence of user data in localStorage
-//     return localStorage.getItem("user") !== null;
-// };
+const isLoggedIn = () => {
+    // Check if the user is logged in based on the presence of user data in localStorage
+    return localStorage.getItem("user") !== null;
+};
+
+const Logout = () => {
+    localStorage.clear()
+    navigate("/")
+    toast.success("Logged Out Successfully")
+  }
 
 
   return (<>
@@ -93,7 +100,15 @@ const [visible, setVisible] = useState(false);
           <NavLink className='headertitle' to="/movies">Movies</NavLink>
           <NavLink className='headertitle' to="nowshowing">Genre</NavLink>
           {/* <NavLink className='headertitlesignin'>Sign In</NavLink> */}
-          <Button className="btnstyle headertitle" label="Sign In" onClick={() => setVisible(true)} />
+
+          {isLoggedIn() ? (
+            <Button className="btnstyle headertitle" onClick={dashboard}  label="Dashboard"  />
+          ) : (
+            <Button className="btnstyle headertitle" label="Sign In" onClick={() => setVisible(true)} /> 
+          )}
+           {isLoggedIn() && (
+                                        <Button className="btnstyle" onClick={Logout} style={{ marginLeft: '-20px' }} label={<i class="fa-solid fa-right-from-bracket"></i>} /> 
+                                    )}
           <Dialog className="loginoverlay" draggable={false} visible={visible} onHide={() => setVisible(false)}>
             <Container>
               <Row className="backk">

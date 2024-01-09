@@ -4,7 +4,7 @@ import { NavLink,useNavigate } from 'react-router-dom';
 import logo from "../assets/images/logo.png"
 import {useFormik} from "formik"
 import * as Yup from "yup"
-// import AuthService from "../../auth/auth.service";
+import AuthService from "../auth/auth.service";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { Dialog } from 'primereact/dialog';
@@ -17,6 +17,8 @@ import { FaUserPlus } from "react-icons/fa6";
 
 
 const Header = () => {
+  const authSvc = new AuthService()
+  const navigate = useNavigate()
   const loginSchema = Yup.object({
     email: Yup.string().email().required(),
     password: Yup.string().required(),
@@ -29,7 +31,7 @@ const formik = useFormik({
     validationSchema: loginSchema,
     onSubmit: async (values) => {
         try{
-            // let response = await authSvc.login(values) 
+            let response = await authSvc.login(values) 
             if (response.status) {
                 //webstorage
                 let formattedData = {
@@ -47,9 +49,9 @@ const formik = useFormik({
                 // dispatch(setLoggedInUser(formattedData))
 
 
-                // localStorage.setItem("accessToken", response.result.token.accessToken)
-                // localStorage.setItem("refreshToken", response.result.token.refreshToken)
-                // localStorage.setItem("user", JSON.stringify(formattedData))
+                localStorage.setItem("accessToken", response.result.token.accessToken)
+                localStorage.setItem("refreshToken", response.result.token.refreshToken)
+                localStorage.setItem("user", JSON.stringify(formattedData))
 
                 toast.success("Welcome to" + formattedData.role + " Portal !")
                 navigate("/" + formattedData.role)

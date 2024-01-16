@@ -15,6 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use("/assets/", express.static(process.cwd()+"/public/"));
 
 app.use("/api", routes)
 

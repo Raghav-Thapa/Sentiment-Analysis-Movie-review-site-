@@ -1,12 +1,11 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink,useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/logo.png"
-import {useFormik} from "formik"
+import { useFormik } from "formik"
 import * as Yup from "yup"
 import AuthService from "../auth/auth.service";
 import { toast } from "react-toastify";
-import React, { useState } from "react";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Container, Form, Row, Col, InputGroup } from "react-bootstrap"
@@ -14,77 +13,96 @@ import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi"
 import { FaCircleUser } from "react-icons/fa6"
 import { FaRegUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa6";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import category from "../admin/category"
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useCallback, useEffect, useState } from "react";
 
 
 const Header = () => {
+
+  const [cats, setCats] = useState();
+
+  const loadCategories = useCallback(async () => {
+    let response = await category.categorySvc.listAllHomeCategories(20, 1);
+    setCats(response.result)
+  }, [])
+
+  useEffect(() => {
+    loadCategories()
+  }, [])
+
+
+
   const authSvc = new AuthService()
   const navigate = useNavigate()
   const loginSchema = Yup.object({
     email: Yup.string().email().required(),
     password: Yup.string().required(),
-})
-const formik = useFormik({
+  })
+  const formik = useFormik({
     initialValues: {
-        email: null,
-        password: null
+      email: null,
+      password: null
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-        try{
-            let response = await authSvc.login(values) 
-            if (response.status) {
-                //webstorage
-                let formattedData = {
-                    id: response.result.data._id,
-                    name: response.result.data.name,
-                    email: response.result.data.email,
-                    role: response.result.data.role,
-                    
-                }
+      try {
+        let response = await authSvc.login(values)
+        if (response.status) {
+          //webstorage
+          let formattedData = {
+            id: response.result.data._id,
+            name: response.result.data.name,
+            email: response.result.data.email,
+            role: response.result.data.role,
 
-                //store
-                //reducer event dispatch
+          }
 
-                
-                // dispatch(setLoggedInUser(formattedData))
+          //store
+          //reducer event dispatch
 
 
-                localStorage.setItem("accessToken", response.result.token.accessToken)
-                localStorage.setItem("refreshToken", response.result.token.refreshToken)
-                localStorage.setItem("user", JSON.stringify(formattedData))
+          // dispatch(setLoggedInUser(formattedData))
 
-                toast.success("Welcome to" + formattedData.role + " Portal !")
-                navigate("/");
-                window.location.reload();
 
-            } else {
-                toast.warning("Credentials does not match")
-            }
+          localStorage.setItem("accessToken", response.result.token.accessToken)
+          localStorage.setItem("refreshToken", response.result.token.refreshToken)
+          localStorage.setItem("user", JSON.stringify(formattedData))
 
-            //webstorage,cookie,localstorage
-            // console.log(response)
-        } catch (axiosErrorResponse) {
-            // toast.error(axiosErrorResponse.data.msg)
-            console.log(axiosErrorResponse)
-            toast.error("Credentials does not match")
+          toast.success("Welcome to" + formattedData.role + " Portal !")
+          navigate("/");
+          window.location.reload();
+
+        } else {
+          toast.warning("Credentials does not match")
         }
-    }
-})
-// console.log(formik.values)
-const [visible, setVisible] = useState(false);
 
-const dashboard = () => {
+        //webstorage,cookie,localstorage
+        // console.log(response)
+      } catch (axiosErrorResponse) {
+        // toast.error(axiosErrorResponse.data.msg)
+        console.log(axiosErrorResponse)
+        toast.error("Credentials does not match")
+      }
+    }
+  })
+  // console.log(formik.values)
+  const [visible, setVisible] = useState(false);
+
+  const dashboard = () => {
     let user = JSON.parse(localStorage.getItem("user"))
     let role = user.role
     navigate("/" + role)
-}
+  }
 
-const isLoggedIn = () => {
+  const isLoggedIn = () => {
     // Check if the user is logged in based on the presence of user data in localStorage
     return localStorage.getItem("user") !== null;
-};
+  };
 
-const Logout = () => {
+  const Logout = () => {
     localStorage.clear()
     navigate("/")
     toast.success("Logged Out Successfully")
@@ -93,22 +111,32 @@ const Logout = () => {
 
   return (<>
     <Navbar className='navv' bg="dark" data-bs-theme="dark">
-      <Container style={{marginLeft:'150px'}} >
+      <Container style={{ marginLeft: '150px' }} >
         <Navbar.Brand to="/"><img className='logo' src={logo} alt="" /></Navbar.Brand>
         <Nav className="me-auto">
           <NavLink className='headertitle active' to="/">Home</NavLink>
           <NavLink className='headertitle' to="/movies">Movies</NavLink>
-          <NavLink className='headertitle' to="nowshowing">Genre</NavLink>
+
+          <NavDropdown style={{color:'white'}} className="headertitleGenre" title="Genre">
+            {
+              cats && cats.map((cat, index) => (
+                <NavLink  key={index} to={`/category/${cat.slug}`} className={"dropdown-item"}>
+                  {cat.name}
+                  <NavDropdown.Divider />
+                </NavLink>
+              ))
+            }
+          </NavDropdown>
           {/* <NavLink className='headertitlesignin'>Sign In</NavLink> */}
 
           {isLoggedIn() ? (
-            <Button className="btnstyle headertitle" onClick={dashboard}  label="Dashboard"  />
+            <Button className="btnstyle headertitle" onClick={dashboard} label="Dashboard" />
           ) : (
-            <Button className="btnstyle headertitle" label="Sign In" onClick={() => setVisible(true)} /> 
+            <Button className="btnstyle headertitle" label="Sign In" onClick={() => setVisible(true)} />
           )}
-           {isLoggedIn() && (
-                                        <Button className="btnstyle" onClick={Logout} style={{ marginLeft: '-20px' }} label={<i class="fa-solid fa-right-from-bracket"></i>} /> 
-                                    )}
+          {isLoggedIn() && (
+            <Button className="btnstyle" onClick={Logout} style={{ marginLeft: '-20px' }} label={<i class="fa-solid fa-right-from-bracket"></i>} />
+          )}
           <Dialog className="loginoverlay" draggable={false} visible={visible} onHide={() => setVisible(false)}>
             <Container>
               <Row className="backk">

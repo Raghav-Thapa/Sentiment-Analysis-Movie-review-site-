@@ -13,6 +13,21 @@
     border-radius: 550px;
 }
 
+.nav-link{
+    color: whitesmoke;
+}
+
+.headertitleGenre{
+    text-decoration: none;
+    color: whitesmoke !important;
+    font-size: 18px ;
+    margin-right: 60px;
+    margin-left: 10px;
+    margin-top: -7px;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
 .headertitle{
     text-decoration: none;
     color: whitesmoke;
@@ -75,13 +90,18 @@
     margin-left: 70vh;
 }
 
+.headertitleGenre, .nav-link:hover{
+    color: #09b0e7 !important;
+}
+
 .headertitle:hover, .btnstyle:hover{
     color: #09b0e7 !important;
 }
 
-.active{
+
+/* .active{
     color: #09b0e7 !important;
-}
+} */
 
 .loginoverlay{
     width: 50vw;

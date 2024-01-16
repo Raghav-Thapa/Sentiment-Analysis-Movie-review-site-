@@ -80,6 +80,13 @@ export const AdminSidebar = () => {
 
                         <div className="sb-sidenav-menu-heading">Core Features</div>
 
+                        <NavLink className="nav-link" to="/admin/category">
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-video"></i>
+                            </div>
+                            Category Management
+                        </NavLink>
+
                         <NavLink className="nav-link" to="/admin/movie">
                             <div className="sb-nav-link-icon">
                                 <i className="fas fa-video"></i>

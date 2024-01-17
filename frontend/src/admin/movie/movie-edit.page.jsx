@@ -71,12 +71,9 @@ const MovieEditForm = () => {
                             name: detail.name,
                             detail: detail.detail, 
                             categories: detail.categories.map((cat) => { return {value: cat._id, label: cat.name} }),
-                            price: detail.price, 
-                            city: {value: detail.city._id, label: detail.city.name},
+                         
                             // discount: detail.discount, 
                             isFeatured: detail.isFeatured, 
-                            ownerId: {value: detail.ownerId._id, label: detail.ownerId.name},
-                            attributes: detail.attributes,
                             status: detail.status, 
                             images: detail.images
                         }}

@@ -93,7 +93,6 @@ const MovieForm = ({ submitAction, detail = null }) => {
       formik.setValues({
         ...detail
       });
-      setAttributes(detail.attributes)
     }
   }, [detail]);
 

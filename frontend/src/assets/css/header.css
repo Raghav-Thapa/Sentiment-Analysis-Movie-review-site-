@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 .backgroundd{
-    background-color: rgba(0, 0, 0, 0.932);
-    height: 2010px;
+    /* background-color: rgba(0, 0, 0, 0.932); */
+    background-color: black;
+    /* height: 2010px; */
 }
 .navv{
     height: 90px;
-    background-color: black !important;
+    background-color: rgb(18, 17, 17) !important;
 }
 .logo{
     height: 85px;
@@ -47,18 +50,33 @@
     opacity: 0.5;
 }
 
+.cardbodyy{
+    background-color: black;
+}
+
+.cardbodyy #cardTitle{
+    color: whitesmoke;
+    position: absolute;
+    margin-top: -60px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .moviecard{
     margin-top: 30px;
     margin-left: 70px;
-    height: 370px;
+    height: 390px;
     border: none;
+    display: flex;
 }
 .cardalign{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .cardimg{
-    height: 370px;
+    height: 390px ;
 }
 .textcolourr{
     color: white;

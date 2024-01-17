@@ -1,7 +1,7 @@
 import Banner from "./banner.component"
 import MovieList from "../components/movie-list.component";
 // import CategoryList from "./components/category-list.component"
-import { Container, Row, Col, Button, Card } from "react-bootstrap"
+import { Container, Row, Col, Button, Card, CardBody } from "react-bootstrap"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -45,14 +45,14 @@ const HomePage = () => {
         setCats(response.result)
     }, [])
 
-    
+
 
     const [movieList, setMovieList] = useState();
 
-    const loadMovies = useCallback(async() => {
+    const loadMovies = useCallback(async () => {
         let response = await movie.movieSvc.listHomeMovies(24, 1)
         setMovieList(response.result)
-      }, [])
+    }, [])
 
 
     useEffect(() => {
@@ -72,10 +72,57 @@ const HomePage = () => {
 
     };
 
-    return(<>
-    <Banner/>
-    <>
-        <Container fluid className="my-5 bg-light">
+    return (<>
+        <Banner />
+        <>
+        <div className='cardalign backgroundd'>
+                {
+                    movieList && movieList.map((movie, index) => (
+                        <Card className='moviecard' style={{ width: '18rem' }}>
+                            <Card.Img className='cardimg'  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+                            
+                            <Card.Body className="cardbodyy">
+                            <Card.Title id="cardTitle">{movie.name}</Card.Title>
+                            </Card.Body>
+
+                            {/* <Card.Body>
+            <NavLink
+              to={`/movie/`+movie.slug}
+              style={{ textDecoration: "none", cursor: "pointer" }}
+            >
+              <h4 className="movieText">
+                {movie.name}
+              </h4>
+            </NavLink>
+                <p style={{marginTop:'10px'}}>      
+              {
+                movie.categories && movie.categories.map((cat) => (
+                    
+                    <NavLink key={cat._id} to={`/category/${cat.slug}`} className={"me-3 btn btn-sm categorybadge bhov"}>
+                        {cat.name}
+                    </NavLink>
+                    
+                ))
+              }
+            </p>
+
+          
+            <NavLink
+              to={`/movie/`+movie.slug}
+              className={"btn btn-sm viewmore bhov"}
+            >
+              View More  <i class="fa-solid fa-beat fa-angle-right"></i>
+            </NavLink>
+          </Card.Body> */}
+          </Card>
+
+                        
+                    ))
+                }
+         
+            </div>
+
+            {/* <Container fluid className="my-5 bg-light">
                 <Row className="p-3">
                     <Col><h4 style={{ color: "#bf9959" }} className="text-center titlee">PROPERTIES FOR EVERYONE</h4></Col>
                 </Row>
@@ -95,7 +142,7 @@ const HomePage = () => {
                         </Slider>
                     </div>
                 </Row>
-            </Container>
+            </Container> */}
 
         </>
     </>)

@@ -25,10 +25,9 @@ const MovieList = ({ movie }) => {
 
   return (
     <>
-    <Slider >
-      <Col sm={6} md={4} lg={3} className="mb-3">
-        <Card className="cardcoverr">
-          <Card.Img src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+    <div className='cardalign'>
+        <Card className="moviecard" style={{ width: '18rem' }}>
+          {/* <Card.Img className='cardimg'  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img> */}
           <Card.Body>
             <NavLink
               to={`/movie/`+movie.slug}
@@ -49,13 +48,6 @@ const MovieList = ({ movie }) => {
                 ))
               }
             </p>
-            
-              <p style={{fontWeight:'bold'}}>
-              <span>NPR. {movie.price}</span>
-              {
-                movie.discount && <del className="mx-3 text-danger">Npr. {movie.price}</del>
-              }
-            </p>
 
           
             <NavLink
@@ -66,8 +58,7 @@ const MovieList = ({ movie }) => {
             </NavLink>
           </Card.Body>
         </Card>
-      </Col>
-      </Slider>
+        </div>
     </>
   );
 };

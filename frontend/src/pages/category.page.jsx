@@ -35,13 +35,13 @@ const CategoryDetail = () => {
     // console.log(movieDetail)
 
     return (
-        <>
-            <div className="header-wrapper">
+        <div style={{backgroundColor:'black', height:'1000px'}}>
+            <div className="">
                 <Row>
                     {/* <Image src={bgimage} alt="" fluid /> */}
                 </Row>
             </div>
-            <Container className="bg-light my-3">
+            <Container style={{backgroundColor:'black'}} className=" my-3">
                 {
                     loading ? <>Loading....</> : <>
                         <Row>
@@ -101,7 +101,7 @@ const CategoryDetail = () => {
                     </>
                 }
             </Container>
-        </>
+        </div>
     )
 }
 

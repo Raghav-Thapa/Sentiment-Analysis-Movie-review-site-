@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css"
 import "bootstrap"
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import "./assets/css/header.css"
+import "./assets/css/reviewpage.css"
 // import "../src/assets/css/header.css"
 // import "../src/assets/css/banner.css"
 

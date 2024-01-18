@@ -1,33 +1,23 @@
 import { NavLink } from "react-router-dom";
 
-import { Col, Card, Badge, Row } from "react-bootstrap";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Col, Card, Badge, Row, Container } from "react-bootstrap";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 // import "../../../assets/css/movie.css"
 
 
 const MovieList = ({ movie }) => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        // nextArrow: <NextArrow />,
-        // prevArrow: <PrevArrow />,
-
-    };
     
 // console.log(movie.city)
 // console.log(movie.categories);
 
   return (
     <>
-    <div className='cardalign'>
-        <Card className="moviecard" style={{ width: '18rem' }}>
-          {/* <Card.Img className='cardimg'  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img> */}
+    <div style={{backgroundColor:'black'}}>
+      
+        <Card className="movielistcard">
+          <Card.Img className=''  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
           <Card.Body>
             <NavLink
               to={`/movie/`+movie.slug}
@@ -58,6 +48,7 @@ const MovieList = ({ movie }) => {
             </NavLink>
           </Card.Body>
         </Card>
+      
         </div>
     </>
   );

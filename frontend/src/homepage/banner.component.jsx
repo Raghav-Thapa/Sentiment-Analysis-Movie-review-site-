@@ -18,7 +18,7 @@ const Banner = () => {
       </Carousel.Item>
     </Carousel>
         
-        <div className='cardalign'>
+        {/* <div className='cardalign'>
     <Card className='moviecard' style={{ width: '18rem' }}>
       <Card.Img className='cardimg' variant="top" src={movieimg} />
       <Card.Body>
@@ -50,7 +50,7 @@ const Banner = () => {
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>
-    </div>
+    </div> */}
     </div>
     </>)
 }

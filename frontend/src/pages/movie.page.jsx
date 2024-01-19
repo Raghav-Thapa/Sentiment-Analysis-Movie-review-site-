@@ -18,8 +18,28 @@ const MovieDetail = () => {
 
     let [sentiments, setSentiments] = useState([]);
 
+    const [positiveReviews, setPositiveReviews] = useState(0);
+    const [negativeReviews, setNegativeReviews] = useState(0);
+
+    const updateReviewCounts = () => {
+        const posReviews = sentiments.filter(sentiment => sentiment.sentiment === 'positive').length;
+        const negReviews = sentiments.filter(sentiment => sentiment.sentiment === 'negative').length;
+    
+        setPositiveReviews(posReviews);
+        setNegativeReviews(negReviews);
+      };
+
+      useEffect(() => {
+        updateReviewCounts();
+      }, [sentiments]);
+  
 
 
+    const [openReviewArea, setOpenReviewArea] = useState(false)
+
+    const handleOpenReviewArea = () => {
+        setOpenReviewArea(true)
+    }
 
 
     const loadSentiments = useCallback(async () => {
@@ -32,7 +52,7 @@ const MovieDetail = () => {
             toast.warn("Sentiments cannot be fetched");
         }
     }, [params]);
-    console.log(sentiments);
+    // console.log(sentiments);
     // let [qty, setQty] = useState(0);
 
     const loadMovieDetail = useCallback(async () => {
@@ -66,6 +86,11 @@ const MovieDetail = () => {
                     movieId: detail._id
                 })
             });
+            if (response.status === 401) {
+                toast.warn('You are not logged in. Please login to continue.');
+                // navigate('/')
+                return;
+            }
             const data = await response.json();
             // Handle the response here
             // You might want to update the sentiments state with the new sentiment
@@ -76,19 +101,11 @@ const MovieDetail = () => {
         } finally {
             setLoading(false);
         }
+        setOpenReviewArea(false)
+        
     };
 
-    const [positiveCount, setPositiveCount] = useState(0); // Initialize counts to 0
-    const [negativeCount, setNegativeCount] = useState(0);
-
-
-    const updateSentimentCounts = (sentimentType) => {
-        if (sentimentType === 'pos') {
-          setPositiveCount(positiveCount + 1);
-        } else if (sentimentType === 'neg') {
-          setNegativeCount(negativeCount + 1);
-        }
-      };
+ 
 
     // let loggedInuser = useSelector((root) => {
     //     return root.User.loggedInUser
@@ -144,13 +161,15 @@ const MovieDetail = () => {
             </div>
 
             <div>
-                <h5 className='ms-5' style={{ color: 'white' }}>Wite a review :</h5>
-                <form onSubmit={handleSubmit}>
-                    <textarea value={sentimentText} onChange={e => setSentimentText(e.target.value)} />
-                    <Button disabled={loading} variant="success" className="text-white" size="sm" type="submit">
-                        {loading ? 'Analyzing...' : 'Analyze'} &nbsp; <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+            <Button className="reviewButton" onClick={handleOpenReviewArea} variant="outline-warning">Write a Review</Button>
+                {/* <h5 className='ms-5' style={{ color: 'white' }}>Wite a review :</h5> */}
+                {openReviewArea ? <form className="reviewWritingArea" onSubmit={handleSubmit}>
+                    <textarea style={{width:'200px'}} value={sentimentText} onChange={e => setSentimentText(e.target.value)} />
+                    <Button disabled={loading} variant="success" className="text-white ms-3" size="sm" type="submit">
+                        {loading ? 'Analyzing...' : 'Submit'} &nbsp; <i class="fa-solid fa-angles-right fa-beat-fade"></i>
                     </Button>
-                </form>
+                </form> : <p></p> }
+                
 
             </div>
 
@@ -159,10 +178,10 @@ const MovieDetail = () => {
 
                     <Col lg={5} className='ms-5 mt-3 textcolourr'>
 
-                        <h4>Total positive reviews: ({positiveCount})</h4>
+                        <h4 className="positive">Total positive reviews: ({positiveReviews}) </h4>
                         <DropdownButton align={"end"} menuVariant='dark' variant='success' id="dropdown-basic-button" title="Positive Reviews">
                         {
-                                sentiments && sentiments.filter(sentiment => sentiment.sentiment === 'pos').map((sentiment, index) => (
+                                sentiments && sentiments.filter(sentiment => sentiment.sentiment === 'positive').map((sentiment, index) => (
                                     <Dropdown.Item style={{ marginBottom: '20px' }} key={index} ><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b>{sentiment.username}</b><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}</Dropdown.Item>
                                 ))
                             }
@@ -173,11 +192,11 @@ const MovieDetail = () => {
 
                     <Col lg={5} className='ms-5 mt-4 textcolourr'>
 
-                        <h4>Total negative reviews: ({negativeCount})</h4>
+                        <h4 className="negative">Total negative reviews: ({negativeReviews})</h4>
 
                         <DropdownButton menuVariant='dark' variant='danger' id="dropdown-basic-button" title="Negative Reviews">
                         {
-                                sentiments && sentiments.filter(sentiment => sentiment.sentiment === 'neg').map((sentiment, index) => (
+                                sentiments && sentiments.filter(sentiment => sentiment.sentiment === 'negative').map((sentiment, index) => (
                                     <Dropdown.Item style={{ marginBottom: '20px' }} key={index} ><i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp; <b>{sentiment.username}</b><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}   </Dropdown.Item>
                                 ))
                             }

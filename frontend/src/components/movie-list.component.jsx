@@ -17,21 +17,22 @@ const MovieList = ({ movie }) => {
     <div style={{backgroundColor:'black'}}>
       
         <Card className="movielistcard">
-          <Card.Img className=''  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+        <NavLink to={`/movie/`+movie.slug}>  <Card.Img style={{ backgroundColor: "rgb(62, 59, 59)"}}  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+        </NavLink>
           <Card.Body>
             <NavLink
               to={`/movie/`+movie.slug}
               style={{ textDecoration: "none", cursor: "pointer" }}
             >
-              <h4 className="movieText">
+              <h4 className="movieTextt">
                 {movie.name}
               </h4>
             </NavLink>
-                <p style={{marginTop:'10px'}}>      
+                <p className="">      
               {
                 movie.categories && movie.categories.map((cat) => (
                     
-                    <NavLink key={cat._id} to={`/category/${cat.slug}`} className={"me-3 btn btn-sm categorybadge bhov"}>
+                    <NavLink key={cat._id} to={`/category/${cat.slug}`} className={"me-3 btn btn-sm categoryName"}>
                         {cat.name}
                     </NavLink>
                     
@@ -42,9 +43,9 @@ const MovieList = ({ movie }) => {
           
             <NavLink
               to={`/movie/`+movie.slug}
-              className={"btn btn-sm viewmore bhov"}
+              className={"btn btn-sm viewmore"}
             >
-              View More  <i class="fa-solid fa-beat fa-angle-right"></i>
+              View More  <i class="fa-solid fa-angle-right"></i>
             </NavLink>
           </Card.Body>
         </Card>

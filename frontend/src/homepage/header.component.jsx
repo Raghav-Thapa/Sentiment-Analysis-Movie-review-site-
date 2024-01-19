@@ -184,7 +184,7 @@ const Header = () => {
                     </Button>
 
 
-                    <NavLink className="signup" style={{ textDecoration: "none", color: "#09b0e7" }} to="forget-password">Forgot Password ? </NavLink>
+                    {/* <NavLink className="signup" style={{ textDecoration: "none", color: "#09b0e7" }} to="forget-password">Forgot Password ? </NavLink> */}
                   </Form>
                 </Col>
 

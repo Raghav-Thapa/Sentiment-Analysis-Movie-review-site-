@@ -57,14 +57,15 @@ const CategoryDetail = () => {
                                         movieDetail.map((movie, index) => (
 
                                             <Col sm={6} md={4} lg={3} className="mb-3">
-                                            <Card className="">
-                                              <Card.Img src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+                                            <Card className="movielistcard">
+                                             <NavLink to={`/movie/`+movie.slug}> <Card.Img src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
+                                             </NavLink>
                                               <Card.Body>
                                                 <NavLink
                                                   to={`/movie/`+movie.slug}
                                                   style={{ textDecoration: "none", cursor: "pointer" }}
                                                 >
-                                                  <h4 className="movieText">
+                                                  <h4 className="movieTextt">
                                                     {movie.name}
                                                   </h4>
                                                 </NavLink>
@@ -76,7 +77,7 @@ const CategoryDetail = () => {
                                                   {
                                                     movie.categories && movie.categories.map((cat) => (
                                                         
-                                                        <NavLink key={cat._id} to={`/category/${cat.slug}`} className={"me-3 btn btn-sm categorybadge bhov"}>
+                                                        <NavLink key={cat._id} to={`/category/${cat.slug}`} className={"me-3 btn btn-sm categoryName "}>
                                                             {cat.name}
                                                         </NavLink>
                                                         

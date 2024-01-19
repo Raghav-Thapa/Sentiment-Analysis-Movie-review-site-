@@ -110,7 +110,25 @@
     border: none;
     background-color: rgba(255, 255, 255, 0);
     margin-left: 70vh;
+    text-align: end;
+    align-items: end;
+    justify-content: end ;
+    justify-items: end;
+    display: flex;
 }
+
+@media only screen and (min-width: 1920px) {
+    .btnstyle {
+      margin-left: 60vh ;
+    }
+  }
+
+  @media only screen and (min-width: 2120px) {
+    .btnstyle {
+      margin-left: 30vh ;
+    }
+  }
+
 
 .headertitleGenre, .nav-link:hover{
     color: #09b0e7 !important;
@@ -191,13 +209,13 @@ svg.p-icon{
 }
 
 .movielistcard{
-    height: 370px;
-    width: 270px;
+    height: 390px;
+    width: 290px;
+    background-color: rgb(62, 59, 59);
 }
 
 .slick-slide{
-    margin-right: 50px;
-    margin-bottom: 30px;
+    margin-right: 5px;
 }
 .slick-list, .bg-light{
     background-color: black;
@@ -207,4 +225,30 @@ svg.p-icon{
     background-color: black !important;
     margin-top: 0px !important;
 }
+
+.movieTextt{
+    font-size: 20px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: rgb(185, 182, 182);
+    font-weight: bold;
+}
+.categoryName{
+    margin-Top: 10px;
+    color: #09b0e7 !important;
+    border: 2px solid #09b0e7 !important;
+} 
+
+.categoryName:hover{
+    background-color: #096b8b !important;
+    color: black !important;
+}
+
+.viewmore{
+    color: #0788b3;
+    margin-left: -10px;
+}
+
+.viewmore:hover{
+    color: #096b8b;
     
+}

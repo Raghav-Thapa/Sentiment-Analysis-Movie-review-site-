@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
-
+body {
+    background-color: black !important;
+}
 
 .movieCoverOverlap{
     margin-top: -450px !important;
@@ -43,4 +45,24 @@
 }
 .second-word{
     color: #09b0e7;
+}
+
+.reviewButton{
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+.reviewWritingArea{
+    margin-left: 70px;
+    margin-top: 5px;
+}
+
+.positive{
+    color: rgb(68, 173, 68);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.negative{
+    color: rgb(177, 84, 84);
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }

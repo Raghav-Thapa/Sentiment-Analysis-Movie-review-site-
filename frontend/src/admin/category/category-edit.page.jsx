@@ -54,7 +54,6 @@ const CategoryEditForm = () => {
                 toast.success(response.msg)
                 navigate('/admin/category')
             } catch (error) {
-                // TODO: Debug for error 
                 toast.error("Cannot create category. Retry again after reloading the page...")
             }
         }
@@ -83,7 +82,6 @@ const CategoryEditForm = () => {
         [detail])
 
     useEffect(() => {
-        //get detail
         getCategoryDetail()
     }, [])
 

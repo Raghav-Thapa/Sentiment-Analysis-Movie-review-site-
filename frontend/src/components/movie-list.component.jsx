@@ -1,10 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 import { Col, Card, Badge, Row, Container } from "react-bootstrap";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import "../../../assets/css/movie.css"
+
 
 
 const MovieList = ({ movie }) => {

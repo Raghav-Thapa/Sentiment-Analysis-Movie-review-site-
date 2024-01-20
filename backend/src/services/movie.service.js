@@ -8,6 +8,8 @@ class MovieService {
                 name: Joi.string().min(3).required(),
                 categories: Joi.string(),
                 detail: Joi.string(),
+                duration: Joi.string(),
+                releaseYear: Joi.string(),
                 isFeatured: Joi.bool(),
                 images: Joi.array().items(Joi.string()),
                 status: Joi.string().valid("active",'inactive').default("inactive")
@@ -58,7 +60,6 @@ class MovieService {
 
     updateMovie = async (data, id) => {
         try {
-            // findByIdAndUpdate => return => before update boject
             let response = await MovieModel.findByIdAndUpdate(id, {$set: data})
             return response
         } catch(except){

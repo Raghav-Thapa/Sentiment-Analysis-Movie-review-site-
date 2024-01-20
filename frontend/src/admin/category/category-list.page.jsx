@@ -53,7 +53,7 @@ const CategoryListPage = () => {
     let [loading, setLoading] = useState(true)
 
     const loadCategory = useCallback(async (perPage=10, page=1) => {
-        //api call
+        
         try {
             let response = await category.categorySvc.listAllCategorys(perPage, page);
             if (response.status) {

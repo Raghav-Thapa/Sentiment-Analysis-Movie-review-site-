@@ -22,7 +22,6 @@ const MovieEditForm = () => {
             toast.success(response.msg)
             navigate('/admin/movie')
         } catch(error) {
-            // TODO: Debug for error 
             toast.error("Cannot create movie. Retry again after reloading the page...")
         }
     }
@@ -70,9 +69,9 @@ const MovieEditForm = () => {
                         detail={{
                             name: detail.name,
                             detail: detail.detail, 
+                            duration: detail.duration,
+                            releaseYear: detail.releaseYear,
                             categories: detail.categories.map((cat) => { return {value: cat._id, label: cat.name} }),
-                         
-                            // discount: detail.discount, 
                             isFeatured: detail.isFeatured, 
                             status: detail.status, 
                             images: detail.images

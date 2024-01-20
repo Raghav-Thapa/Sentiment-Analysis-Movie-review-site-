@@ -9,6 +9,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 // import "../../assets/css/movie.css"
 
+
 const MovieDetail = () => {
     const navigate = useNavigate();
     const params = useParams();
@@ -53,7 +54,6 @@ const MovieDetail = () => {
         }
     }, [params]);
     // console.log(sentiments);
-    // let [qty, setQty] = useState(0);
 
     const loadMovieDetail = useCallback(async () => {
         try {
@@ -72,6 +72,10 @@ const MovieDetail = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!sentimentText.trim()) {
+            toast.warn('Please enter some text before submitting.');
+            return;
+        }
         try {
             setLoading(true);
             const token = localStorage.getItem('accessToken');
@@ -92,10 +96,8 @@ const MovieDetail = () => {
                 return;
             }
             const data = await response.json();
-            // Handle the response here
-            // You might want to update the sentiments state with the new sentiment
             setSentiments([...sentiments, data]);
-            setSentimentText('');  // Clear the textarea
+            setSentimentText('');  
         } catch (error) {
             console.error('Failed to submit sentiment:', error);
         } finally {
@@ -106,10 +108,6 @@ const MovieDetail = () => {
     };
 
  
-
-    // let loggedInuser = useSelector((root) => {
-    //     return root.User.loggedInUser
-    // }) 
     const [firstName, ...lastNameArray] = detail && detail.name ? detail.name.split(' ') : '';
     const lastName = lastNameArray.join(' ');
 
@@ -147,7 +145,13 @@ const MovieDetail = () => {
                             }
                         </span><br />
                         <b style={{ color: 'whitesmoke' }}>Country: </b><span style={{ color: '#09b0e7' }}>&nbsp; United States, United Kingdom</span><br />
-                        <b style={{ color: 'whitesmoke' }}>Duration: </b><span style={{ color: '#09b0e7' }}>&nbsp; 100 min</span><br />
+                        <b style={{ color: 'whitesmoke' }}>Duration: </b>
+                        <span style={{ color: '#09b0e7' }}>
+                            &nbsp; {detail && detail.duration ? new DOMParser().parseFromString(detail.duration, 'text/html').body.textContent : ''} min</span><br />
+                        <b style={{ color: 'whitesmoke' }}>Release Year: </b>
+                        <span style={{ color: '#09b0e7' }}>
+                            &nbsp; {detail && detail.releaseYear ? new DOMParser().parseFromString(detail.releaseYear, 'text/html').body.textContent : ''}
+                        </span><br />
                     </div>
                     {
                         detail && detail.images.map((item, index) => (

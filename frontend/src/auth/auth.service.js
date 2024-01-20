@@ -84,12 +84,12 @@ class AuthService {
             )
             console.log(response);
       if (response.status) {
-        return response.data; // Assuming the backend returns relevant data upon successful password reset
+        return response.data; 
       } else {
-        throw new Error(response.data.msg); // Throw an error with the error message from the API response
+        throw new Error(response.data.msg); 
       }
     } catch (error) {
-      throw error; // You can handle error responses or custom error messages here
+      throw error; 
     }
   };
 

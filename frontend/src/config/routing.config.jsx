@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../homepage"
 import HomePageLayout from "../homepage/home.layout"
-import SentimentAnalysis from "../components/SentimentAnalysis";
-import MovieReview from "../components/moviereview.page";
 import RegisterPage from "../auth/register.page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
@@ -13,6 +11,7 @@ import Category from "../admin/category";
 import CategoryDetail from "../pages/category.page";
 import MovieDetail from "../pages/movie.page";
 import AllMoviesList from "../homepage/allmovieslist.component";
+import { AdminDashboard } from "../admin/components";
 
 
 const Routing = () => {
@@ -22,7 +21,7 @@ const Routing = () => {
             <Routes>
                 <Route path="/" element={<HomePageLayout/>}>
                     <Route index element={<HomePage />} />
-                    <Route path="review" element={<MovieReview/>}></Route>
+                    {/* <Route path="review" element={<MovieReview/>}></Route> */}
                     
                     <Route path="category/:slug" element={<CategoryDetail/>} />
                     <Route path="movies" element={<AllMoviesList/>} />
@@ -30,7 +29,7 @@ const Routing = () => {
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
-                    <Route index element={<>Dashboard</>} />
+                    <Route index element={<AdminDashboard/>} />
 
                     <Route path="category" element={<><Outlet /></>} >
                         <Route index element={<Category.CategoryListPage/>} />

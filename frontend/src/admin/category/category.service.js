@@ -1,7 +1,7 @@
 import HttpService from "../../services/http.service"
 
 class CategoryService extends HttpService {
-    //CRUD
+    
     createCategory =async (data) => {
         try {
             let response = await this.postRequest('/category', data, {auth:true, file:true})

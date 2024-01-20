@@ -51,7 +51,7 @@ const Header = () => {
       try {
         let response = await authSvc.login(values)
         if (response.status) {
-          //webstorage
+        
           let formattedData = {
             id: response.result.data._id,
             name: response.result.data.name,
@@ -59,13 +59,6 @@ const Header = () => {
             role: response.result.data.role,
 
           }
-
-          //store
-          //reducer event dispatch
-
-
-          // dispatch(setLoggedInUser(formattedData))
-
 
           localStorage.setItem("accessToken", response.result.token.accessToken)
           localStorage.setItem("refreshToken", response.result.token.refreshToken)
@@ -79,16 +72,13 @@ const Header = () => {
           toast.warning("Credentials does not match")
         }
 
-        //webstorage,cookie,localstorage
         // console.log(response)
       } catch (axiosErrorResponse) {
-        // toast.error(axiosErrorResponse.data.msg)
         console.log(axiosErrorResponse)
         toast.error("Credentials does not match")
       }
     }
   })
-  // console.log(formik.values)
   const [visible, setVisible] = useState(false);
 
   const dashboard = () => {
@@ -98,7 +88,6 @@ const Header = () => {
   }
 
   const isLoggedIn = () => {
-    // Check if the user is logged in based on the presence of user data in localStorage
     return localStorage.getItem("user") !== null;
   };
 
@@ -204,8 +193,6 @@ const Header = () => {
                       <FaUserPlus className="me-3 " />Signup
                     </Button>
                     </NavLink>
-
-
 
                   </div>
                 </Col>

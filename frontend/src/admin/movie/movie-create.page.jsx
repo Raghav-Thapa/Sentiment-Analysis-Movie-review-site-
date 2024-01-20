@@ -10,12 +10,10 @@ const MovieCreateForm = () => {
 
     const handleSubmit = async(values) => {
         try{
-            // submit
             const response = await movie.movieSvc.createMovie(values)
             toast.success(response.msg)
             navigate('/admin/movie')
         } catch(error) {
-            // TODO: Debug for error 
             toast.error("Cannot create movie. Retry again after reloading the page...")
         }
     }

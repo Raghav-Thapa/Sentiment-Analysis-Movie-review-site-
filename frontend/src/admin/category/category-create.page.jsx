@@ -47,12 +47,10 @@ const CategoryCreateForm = () => {
 
         onSubmit: async (values) => {
             try {
-                // submit
                 const response = await category.categorySvc.createCategory(values)
                 toast.success(response.msg)
                 navigate('/admin/category')
             } catch (error) {
-                // TODO: Debug for error 
                 toast.error("Cannot create category. Retry again after reloading the page...")
             }
         }

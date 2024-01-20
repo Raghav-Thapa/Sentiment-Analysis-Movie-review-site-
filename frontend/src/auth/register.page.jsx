@@ -45,10 +45,8 @@ const RegisterPage = () => {
             try {
                 let formData = new FormData();
                 const authSvc = new AuthService();
-                //file append
+               
                 formData.append("image", values.image, values.image.filename)
-
-                //textdata
                 formData.append('name', values.name)
                 formData.append('email', values.email)
                 formData.append('role', values.role)

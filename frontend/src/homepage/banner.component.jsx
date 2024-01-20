@@ -16,41 +16,7 @@ const Banner = () => {
       <Carousel.Item>
         <img className='bannerimg' src={bannerimg} alt="" />
       </Carousel.Item>
-    </Carousel>
-        
-        {/* <div className='cardalign'>
-    <Card className='moviecard' style={{ width: '18rem' }}>
-      <Card.Img className='cardimg' variant="top" src={movieimg} />
-      <Card.Body>
-        <Card.Title>Movie Title</Card.Title>
-       <NavLink  to='/review'><Button variant="primary">Go somewhere</Button></NavLink> 
-      </Card.Body>
-    </Card>
-
-    <Card className='moviecard' style={{ width: '18rem' }}>
-      <Card.Img className='cardimg' variant="top" src={thorimg} />
-      <Card.Body>
-        <Card.Title>Movie Title</Card.Title>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-
-    <Card className='moviecard' style={{ width: '18rem' }}>
-      <Card.Img className='cardimg' variant="top" src={ironmanimg} />
-      <Card.Body>
-        <Card.Title>Movie Title</Card.Title>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-
-    <Card className='moviecard' style={{ width: '18rem' }}>
-      <Card.Img className='cardimg' variant="top" src={captainimg} />
-      <Card.Body>
-        <Card.Title>Movie Title</Card.Title>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-    </div> */}
+    </Carousel>      
     </div>
     </>)
 }

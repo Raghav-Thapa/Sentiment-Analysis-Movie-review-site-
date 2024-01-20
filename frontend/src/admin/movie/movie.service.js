@@ -1,7 +1,7 @@
 import HttpService from "../../services/http.service"
 
 class MovieService extends HttpService {
-    // CRUD 
+    
     createMovie =async (data) => {
         try {
             let response = await this.postRequest('/movie', data, {auth: true, file: true})

@@ -38,22 +38,22 @@ const HomePage = () => {
     return (<>
         <Banner />
         <>
-        <div className='cardalign backgroundd'>
+            <div className='cardalign backgroundd'>
                 {
                     movieList && movieList.map((movie, index) => (
-                        <NavLink to={`/movie/`+movie.slug}> <Card className='moviecard' style={{ width: '18rem' }}>
-                            <Card.Img className='cardimg'  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
-                            
-                            <Card.Body className="cardbodyy">
-                            <Card.Title id="cardTitle">{movie.name}</Card.Title>
-                            </Card.Body>
-          </Card>
-          </NavLink>
+                        <NavLink to={`/movie/` + movie.slug}> <Card className='moviecard' style={{ width: '18rem' }}>
+                            <Card.Img className='cardimg' src={import.meta.env.VITE_IMAGE_URL + "/movies/" + movie.images[0]}></Card.Img>
 
-                        
+                            <Card.Body className="cardbodyy">
+                                <Card.Title id="cardTitle">{movie.name}</Card.Title>
+                            </Card.Body>
+                        </Card>
+                        </NavLink>
+
+
                     ))
                 }
-         
+
             </div>
         </>
     </>)

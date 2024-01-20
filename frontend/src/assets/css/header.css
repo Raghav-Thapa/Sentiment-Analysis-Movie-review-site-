@@ -252,3 +252,18 @@ svg.p-icon{
     color: #096b8b;
     
 }
+
+.bg-light{
+    /* background-color: rgb(238, 231, 231) !important; */
+  }
+
+  #layoutSidenav_content{
+    background-color: rgb(228, 220, 204);
+  }
+
+  .adminDashboard{
+    text-align: center;
+    font-family: 'Luckiest Guy';
+    color: rgb(122, 94, 43);
+    margin-top: 15%;
+  }

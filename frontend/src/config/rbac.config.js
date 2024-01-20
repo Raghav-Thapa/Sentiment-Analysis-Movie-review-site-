@@ -23,8 +23,7 @@ const CheckPermission = ({Component, accessBy}) => {
         }
     }
     useEffect(() => {   
-        //get logged in user
-        getLoggedInUser()
+           getLoggedInUser()
     }, [])
 
 
@@ -42,18 +41,7 @@ const CheckPermission = ({Component, accessBy}) => {
             return <Navigate to={"/"+userInfo.role}/>
         }
     }
-    // let userDetail = {
-    //     role : "admin"
-    // }
-    // //role of logged in user
-    // if(userDetail.role === accessBy){
-    //     return Component
-    // } else {
-    //     toast.warning("You do not have permission to access"+accessBy+"pannel")
-    //     return <Navigate to = {"/" + userDetail.role}/>
-    // }
-
-    
+   
 
 }
 

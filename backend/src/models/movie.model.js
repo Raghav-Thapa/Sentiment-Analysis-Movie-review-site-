@@ -16,6 +16,12 @@ const MovieSchema = new mongoose.Schema({
     detail:{
         type: String
     },
+    duration:{
+        type: String
+    },
+    releaseYear:{
+        type: String
+    },
     isfeatured:{
         type: Boolean,
         default: false

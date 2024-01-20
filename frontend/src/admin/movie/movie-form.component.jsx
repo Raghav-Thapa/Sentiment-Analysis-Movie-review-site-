@@ -39,16 +39,14 @@ const MovieForm = ({ submitAction, detail = null }) => {
     loadCategories()           
   }, [])
 
-  // let loggedinUser = useSelector((root) => {
-  //   return root.User.loggedInUser;
-  // })
-
   const validationSchema = Yup.object({
     name: Yup.string().required(),
     status: Yup.string()
       .matches(/active|inactive/)
       .required(),
     detail: Yup.string().required(),
+    duration: Yup.string(),
+    releaseYear: Yup.string(),
     categories: Yup.array().of(Yup.object()).nullable().default(null),
     isFeatured: Yup.boolean().default(false),
     images: Yup.array(),
@@ -59,6 +57,8 @@ const MovieForm = ({ submitAction, detail = null }) => {
     initialValues: {
       name: "",
       detail: "",
+      duration: "",
+      releaseYear: "",
       categories: null,
       isFeatured: false,
       status: "inactive",
@@ -125,6 +125,38 @@ const MovieForm = ({ submitAction, detail = null }) => {
           }}
           placeholder="Enter Detail..."
           error={formik.errors?.detail}
+        />
+
+        <TextAreaInput 
+          label="Duration of Movie"
+          name="duration"
+          value={formik.values?.duration}
+          changeEvent={(data) => {
+            if(data) {
+              formik.setValues({
+                ...formik.values, 
+                duration: data
+              })
+            }
+          }}
+          placeholder="Enter duration of movie..."
+          error={formik.errors?.duration}
+        />
+
+        <TextAreaInput 
+          label="Release Year of Movie"
+          name="releaseYear"
+          value={formik.values?.releaseYear}
+          changeEvent={(data) => {
+            if(data) {
+              formik.setValues({
+                ...formik.values, 
+                releaseYear: data
+              })
+            }
+          }}
+          placeholder="Enter duration of movie..."
+          error={formik.errors?.releaseYear}
         />
         
         <Form.Group className="row mb-3">

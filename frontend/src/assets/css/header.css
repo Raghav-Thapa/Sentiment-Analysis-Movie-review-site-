@@ -209,6 +209,7 @@ svg.p-icon{
 }
 
 .movielistcard{
+    margin-bottom: 100px;
     height: 390px;
     width: 290px;
     background-color: rgb(62, 59, 59);

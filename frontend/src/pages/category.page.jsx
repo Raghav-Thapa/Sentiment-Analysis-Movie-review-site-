@@ -61,14 +61,14 @@ const CategoryDetail = () => {
                                              <NavLink to={`/movie/`+movie.slug}> <Card.Img src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
                                              </NavLink>
                                               <Card.Body>
-                                                <NavLink
+                                                {/* <NavLink
                                                   to={`/movie/`+movie.slug}
                                                   style={{ textDecoration: "none", cursor: "pointer" }}
                                                 >
                                                   <h4 className="movieTextt">
                                                     {movie.name}
                                                   </h4>
-                                                </NavLink>
+                                                </NavLink> */}
                                     
                                                 {/* <NavLink  to={`/city/${movie.city.slug}`}  className={"citybadge bhov"}>
                                                     <i class="fa-solid fa-location-dot"></i>  {movie.city.name}

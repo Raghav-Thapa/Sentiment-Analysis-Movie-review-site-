@@ -7,6 +7,7 @@ import { Col, Container, Row, Carousel, Badge, Form, Button, Card } from "react-
 import { FaPlus } from "react-icons/fa";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import React from "react";
 // import "../../assets/css/movie.css"
 
 
@@ -137,11 +138,15 @@ const MovieDetail = () => {
                         <b style={{ color: 'whitesmoke' }}>Genre: </b>
                         <span style={{ color: '#09b0e7', textDecoration: 'none' }}>&nbsp;
                             {
-                                detail && detail.categories && detail.categories.map((cat) => (
-                                    <NavLink style={{ textDecoration: 'none', color: '#09b0e7' }} key={cat._id} to={`/category/${cat.slug}`}>
-                                        {cat.name}
-                                    </NavLink>
+                                detail && detail.categories && detail.categories.map((cat, index) => (
+                                    <React.Fragment key={cat._id}>
+                                        <NavLink style={{ textDecoration: 'none', color: '#09b0e7' }} to={`/category/${cat.slug}`}>
+                                            {cat.name}
+                                        </NavLink>
+                                        {index !== detail.categories.length - 1 && ' '}
+                                    </React.Fragment>
                                 ))
+                                
                             }
                         </span><br />
                         <b style={{ color: 'whitesmoke' }}>Country: </b><span style={{ color: '#09b0e7' }}>&nbsp; United States, United Kingdom</span><br />

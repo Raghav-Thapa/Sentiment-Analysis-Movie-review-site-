@@ -17,14 +17,14 @@ const MovieList = ({ movie }) => {
         <NavLink to={`/movie/`+movie.slug}>  <Card.Img style={{ backgroundColor: "rgb(62, 59, 59)"}}  src={import.meta.env.VITE_IMAGE_URL+"/movies/"+movie.images[0]}></Card.Img>
         </NavLink>
           <Card.Body>
-            <NavLink
+            {/* <NavLink
               to={`/movie/`+movie.slug}
               style={{ textDecoration: "none", cursor: "pointer" }}
             >
               <h4 className="movieTextt">
                 {movie.name}
               </h4>
-            </NavLink>
+            </NavLink> */}
                 <p className="">      
               {
                 movie.categories && movie.categories.map((cat) => (

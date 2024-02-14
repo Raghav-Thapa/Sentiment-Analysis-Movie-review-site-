@@ -45,7 +45,7 @@ const HomePage = () => {
                             <Card.Img className='cardimg' src={import.meta.env.VITE_IMAGE_URL + "/movies/" + movie.images[0]}></Card.Img>
 
                             <Card.Body className="cardbodyy">
-                                <Card.Title id="cardTitle">{movie.name}</Card.Title>
+                                {/* <Card.Title id="cardTitle">{movie.name}</Card.Title> */}
                             </Card.Body>
                         </Card>
                         </NavLink>

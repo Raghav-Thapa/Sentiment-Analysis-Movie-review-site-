@@ -3,6 +3,7 @@ const slugify = require("slugify")
 
 class MovieController {
   _svc;
+  
   constructor() {
     this._svc = new MovieService();
   }

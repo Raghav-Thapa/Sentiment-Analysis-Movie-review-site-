@@ -37,8 +37,7 @@ class MovieController {
         });
       }
       console.log(data)
-      
-
+    
       let validated = await this._svc.movieValidate(data);
       validated.slug = slugify(validated.name, { lower: true });
 

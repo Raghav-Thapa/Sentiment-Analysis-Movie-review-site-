@@ -1,33 +1,3 @@
-# import joblib
-# import sys
-# import json
-
-# # Load the model (replace 'model.pkl' with your model file path)
-# model = joblib.load('./new_svm.pkl')
-# vectorizer = joblib.load('./new_vectorizer.pkl')
-# # cleaning = joblib.load('./cleaning.pkl')
-
-# def predict_sentiment(text):
-#     # Perform preprocessing and feature extraction if needed
-#     # Make predictions using the loaded model
-#     # text_cleaned = cleaning(text)
-#     # cleaned_text = cleaning(text)
-#     text_vectorized = vectorizer.transform([text])
-#     prediction = model.predict(text_vectorized)[0]
-#     return prediction,  text_vectorized
-
-# if __name__ == '__main__':
-#     # Check if there is at least one command line argument
-#     if len(sys.argv) > 1:
-#         # Combine all command line arguments into a single string
-#         input_data = ' '.join(sys.argv[1:])
-#         result, text_vectorized = predict_sentiment(input_data)
-#         print(result)
-#         print(text_vectorized)
-#     else:
-#         print("Please provide a text input.")
-
-
 import joblib
 import sys
 import json
@@ -42,8 +12,6 @@ from nltk.stem import PorterStemmer
 porter_stemmer = PorterStemmer()
 
 words = stopwords.words("english")
-# words.extend(["a", "an", "the","movie","would", "could", "might", "film","shall"])
-# print(len(words))
 remove_words = ['aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't", 'don', "don't", 'should', "should've", 'no', 'nor', 'not',"but", 'do', 'does', 'did', 'doing']
 new_list = [i for i in words if i not in remove_words]
 
@@ -89,25 +57,9 @@ def cleaning(x):
     return x
 
 # Load the model (replace 'model.pkl' with your model file path)
-model = joblib.load('./new_svm.pkl')
-vectorizer = joblib.load('./new_vectorizer.pkl')
+model = joblib.load('./model.pkl')
+vectorizer = joblib.load('./vectorizer.pkl')
 
-# # def predict_sentiment(text):
-#     print(f"Enter review = {text}")
-#     text_expanded = contraction_expansion(text)
-#     print(f"After expansion: {text_expanded}")
-#     text_chars_removed = remove_special_char(text_expanded)
-#     print(f"After characters removal: {text_chars_removed}")
-#     text_stopwords_removed = stop_words_removal(text_chars_removed)
-#     print(f"After stopwords removal: {text_stopwords_removed}")
-#     text_stemmed = stemming(text_stopwords_removed)
-#     print(f"After stemming: {text_stemmed}")
-#     # text_vectorized = vectorizer.transform([text_stemmed])  # Vectorize the preprocessed text
-#     text_clean = cleaning(text)  # Preprocess the input text
-#     print(f"\nCleaned Input Sentence: {text_clean}")
-#     text_vectorized = vectorizer.transform([text])
-#     prediction = model.predict(text_vectorized)[0]
-#     return prediction,  text_vectorized
 
 def predict_sentiment(text):
     text_expanded = contraction_expansion(text)
@@ -115,9 +67,9 @@ def predict_sentiment(text):
     text_stopwords_removed = stop_words_removal(text_chars_removed)
     text_stemmed = stemming(text_stopwords_removed)
     text_clean = cleaning(text)
-    text_vectorized = vectorizer.transform([text])
+    text_vectorized = vectorizer.transform([text_clean])
     vectorized_text = [[int(index), float(score)] for index, score in zip(text_vectorized.nonzero()[1], text_vectorized.data)]
-    sentiment = model.predict(text_vectorized)[0]
+    sentiment = str(model.predict(text_vectorized)[0])  # Convert to str
     return {
         'sentiment': sentiment,
         'expansion': text_expanded,

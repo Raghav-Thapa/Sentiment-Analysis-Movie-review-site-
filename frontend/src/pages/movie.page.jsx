@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import movie from "../admin/movie";
@@ -31,20 +32,16 @@ const MovieDetail = () => {
   const [positiveReviews, setPositiveReviews] = useState(0);
   const [negativeReviews, setNegativeReviews] = useState(0);
   const [neutralReviews, setNeutralReviews] = useState(0);
-  const [selectedComment, setSelectedComment] = useState(null);
-  const handleCommentClick = (comment) => {
-    setSelectedComment(comment);
-  };
 
   const updateReviewCounts = () => {
     const posReviews = sentiments.filter(
-      (sentiment) => sentiment.sentiment === "positive"
+      (sentiment) => sentiment.sentiment === "2"
     ).length;
     const negReviews = sentiments.filter(
-      (sentiment) => sentiment.sentiment === "negative"
+      (sentiment) => sentiment.sentiment === "0"
     ).length;
     const neuReviews = sentiments.filter(
-      (sentiment) => sentiment.sentiment === "neutral"
+      (sentiment) => sentiment.sentiment === "1"
     ).length;
 
     setPositiveReviews(posReviews);
@@ -70,6 +67,7 @@ const MovieDetail = () => {
         movieResponse.result._id
       );
       setSentiments(sentimentResponse);
+      //  return sentimentResponse;
     } catch (exception) {
       toast.warn("Sentiments cannot be fetched");
     }
@@ -120,7 +118,8 @@ const MovieDetail = () => {
         return;
       }
       const data = await response.json();
-      setSentiments([...sentiments, data]);
+      const newSentiments = await loadSentiments();
+      setSentiments([...newSentiments, data]);
       setSentimentText("");
     } catch (error) {
       console.error("Failed to submit sentiment:", error);
@@ -276,7 +275,7 @@ const MovieDetail = () => {
               >
                 {sentiments &&
                   sentiments
-                    .filter((sentiment) => sentiment.sentiment === "positive")
+                    .filter((sentiment) => sentiment.sentiment === "2")
                     .map((sentiment, index) => (
                       <Dropdown key={index} className="">
                         <Dropdown.Toggle
@@ -292,56 +291,81 @@ const MovieDetail = () => {
 
                         <Dropdown.Menu style={{ marginLeft: "20px" }}>
                           <Dropdown.Item header>
-                            Preprocessing Steps
-                            <br />
                             <div className="steps">
-                              <li>
-                                Entered Review:&nbsp; &nbsp; {sentiment.text}
-                              </li>
-                              <li>
-                                After Expansion:&nbsp; &nbsp;{" "}
-                                {sentiment.expansion}
-                              </li>
-                              <li>
-                                After Characters Removal:&nbsp; &nbsp;{" "}
-                                {sentiment.charactersRemoval}
-                              </li>
-                              <li>
-                                After Stopwords Removal:&nbsp; &nbsp;{" "}
-                                {sentiment.stopwordsRemoval}
-                              </li>
-                              <li>
-                                After Stemming:&nbsp; &nbsp;{" "}
-                                {sentiment.stemming}
-                              </li>
-                              <li>
-                                Cleaned Input Sentence:&nbsp; &nbsp;{" "}
-                                {sentiment.cleanedText}
-                              </li>
-                              {/* <li>Vectorized Input Sentence: {sentiment.vectorizedText}</li> */}
-                              <li>
-                                Predicted Sentiment: &nbsp; &nbsp;
-                                {sentiment.sentiment}
-                              </li>
+                              <Table striped bordered hover>
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Preprocessing Steps: </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Entered Review:</td>
+                                    <td>{sentiment.text}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>After Expansion:</td>
+                                    <td>
+                                      {" "}
+                                      {sentiment && sentiment.expansion
+                                        ? sentiment.expansion.replace(/\"/g, "")
+                                        : ""}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>After Characters Removal:</td>
+                                    <td>{sentiment.charactersRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>4</td>
+                                    <td>After Stopwords Removal:</td>
+                                    <td>{sentiment.stopwordsRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>5</td>
+                                    <td>After Stemming:</td>
+                                    <td>{sentiment.stemming}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>6</td>
+                                    <td>Cleaned Input Sentence:</td>
+                                    <td>{sentiment.cleanedText}</td>
+                                  </tr>
+                                  {/* <tr>
+                                    <td>7</td>
+                                    <td>Vectorized Input Sentence:</td>
+                                    <td>
+                                      <ul>
+                                        {sentiment && sentiment.vectorizedText
+                                          ? sentiment.vectorizedText.map(
+                                              (item, index) => (
+                                                <li key={index}>
+                                                  Index: {item.index}, Score:{" "}
+                                                  {item.score}
+                                                </li>
+                                              )
+                                            )
+                                          : null}
+                                      </ul>
+                                    </td>
+                                  </tr> */}
+                                  <tr>
+                                    <td></td>
+                                    <td>Predicted Sentiment:</td>
+                                    <td>Positive</td>
+                                  </tr>
+                                </tbody>
+                              </Table>
                             </div>
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     ))}
               </DropdownButton>
-              {/* {selectedComment && (
-                <div className="describe">
-                  <h2>
-                    Preprocessing Steps for Comment: {selectedComment.text}
-                  </h2>
-                  <ol>
-                    <li>Step 1: ...</li>
-                    <li>Step 2: ...</li>
-                    <li>Step 3: ...</li>
-                    // Add as many steps as needed
-                  </ol>
-                </div>
-              )} */}
             </Col>
 
             <Col lg={3} className="ms-5 mt-4 textcolourr">
@@ -357,32 +381,7 @@ const MovieDetail = () => {
               >
                 {sentiments &&
                   sentiments
-                    .filter((sentiment) => sentiment.sentiment === "negative")
-                    .map((sentiment, index) => (
-                      <Dropdown.Item
-                        style={{ marginBottom: "20px" }}
-                        key={index}
-                      >
-                        <i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp;{" "}
-                        <b>{sentiment.username}</b>
-                        <br />
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}{" "}
-                      </Dropdown.Item>
-                    ))}
-              </DropdownButton>
-            </Col>
-
-            <Col lg={3} className="ms-5 mt-3 textcolourr">
-              <h4 className="neutral">Mixed Feelings: ({neutralReviews}) </h4>
-              <DropdownButton
-                menuVariant="dark"
-                variant="success"
-                id="dropdown-basic-button"
-                title="Positive Reviews"
-              >
-                {sentiments &&
-                  sentiments
-                    .filter((sentiment) => sentiment.sentiment === "neutral")
+                    .filter((sentiment) => sentiment.sentiment === "0")
                     .map((sentiment, index) => (
                       <Dropdown key={index} className="">
                         <Dropdown.Toggle
@@ -398,37 +397,178 @@ const MovieDetail = () => {
 
                         <Dropdown.Menu style={{ marginLeft: "20px" }}>
                           <Dropdown.Item header>
-                            Preprocessing Steps
-                            <br />
                             <div className="steps">
-                              <li>
-                                Entered Review:&nbsp; &nbsp; {sentiment.text}
-                              </li>
-                              <li>
-                                After Expansion:&nbsp; &nbsp;{" "}
-                                {sentiment.expansion}
-                              </li>
-                              <li>
-                                After Characters Removal:&nbsp; &nbsp;{" "}
-                                {sentiment.charactersRemoval}
-                              </li>
-                              <li>
-                                After Stopwords Removal:&nbsp; &nbsp;{" "}
-                                {sentiment.stopwordsRemoval}
-                              </li>
-                              <li>
-                                After Stemming:&nbsp; &nbsp;{" "}
-                                {sentiment.stemming}
-                              </li>
-                              <li>
-                                Cleaned Input Sentence:&nbsp; &nbsp;{" "}
-                                {sentiment.cleanedText}
-                              </li>
-                              {/* <li>Vectorized Input Sentence: {sentiment.vectorizedText}</li> */}
-                              <li>
-                                Predicted Sentiment: &nbsp; &nbsp;
-                                {sentiment.sentiment}
-                              </li>
+                              <Table striped bordered hover>
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Preprocessing Steps: </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Entered Review:</td>
+                                    <td>{sentiment.text}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>After Expansion:</td>
+                                    <td>
+                                      {" "}
+                                      {sentiment && sentiment.expansion
+                                        ? sentiment.expansion.replace(/\"/g, "")
+                                        : ""}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>After Characters Removal:</td>
+                                    <td>{sentiment.charactersRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>4</td>
+                                    <td>After Stopwords Removal:</td>
+                                    <td>{sentiment.stopwordsRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>5</td>
+                                    <td>After Stemming:</td>
+                                    <td>{sentiment.stemming}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>6</td>
+                                    <td>Cleaned Input Sentence:</td>
+                                    <td>{sentiment.cleanedText}</td>
+                                  </tr>
+                                  {/* <tr>
+                                    <td>7</td>
+                                    <td>Vectorized Input Sentence:</td>
+                                    <td>
+                                      <ul>
+                                        {sentiment && sentiment.vectorizedText
+                                          ? sentiment.vectorizedText.map(
+                                              (item, index) => (
+                                                <li key={index}>
+                                                  Index: {item.index}, Score:{" "}
+                                                  {item.score}
+                                                </li>
+                                              )
+                                            )
+                                          : null}
+                                      </ul>
+                                    </td>
+                                  </tr> */}
+                                  <tr>
+                                    <td></td>
+                                    <td>Predicted Sentiment:</td>
+                                    <td>Negative</td>
+                                  </tr>
+                                </tbody>
+                              </Table>
+                            </div>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    ))}
+              </DropdownButton>
+            </Col>
+
+            <Col lg={3} className="ms-5 mt-3 textcolourr">
+              <h4 className="neutral">Mixed Feelings: ({neutralReviews}) </h4>
+              <DropdownButton
+                menuVariant="dark"
+                variant="secondary"
+                id="dropdown-basic-button"
+                title="Neutral Reviews"
+              >
+                {sentiments &&
+                  sentiments
+                    .filter((sentiment) => sentiment.sentiment === "1")
+                    .map((sentiment, index) => (
+                      <Dropdown key={index} className="">
+                        <Dropdown.Toggle
+                          variant="dark"
+                          id="dropdown-basic"
+                          className="comments"
+                        >
+                          <i class="fa-solid fa-circle-user fa-2xl"></i> &nbsp;{" "}
+                          <b>{sentiment.username}</b>
+                          <br />
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {sentiment.text}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu style={{ marginLeft: "20px" }}>
+                          <Dropdown.Item header>
+                            <div className="steps">
+                              <Table striped bordered hover>
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Preprocessing Steps: </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Entered Review:</td>
+                                    <td>{sentiment.text}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>After Expansion:</td>
+                                    <td>
+                                      {" "}
+                                      {sentiment && sentiment.expansion
+                                        ? sentiment.expansion.replace(/\"/g, "")
+                                        : ""}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>After Characters Removal:</td>
+                                    <td>{sentiment.charactersRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>4</td>
+                                    <td>After Stopwords Removal:</td>
+                                    <td>{sentiment.stopwordsRemoval}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>5</td>
+                                    <td>After Stemming:</td>
+                                    <td>{sentiment.stemming}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>6</td>
+                                    <td>Cleaned Input Sentence:</td>
+                                    <td>{sentiment.cleanedText}</td>
+                                  </tr>
+                                  {/* <tr>
+                                    <td>7</td>
+                                    <td>Vectorized Input Sentence:</td>
+                                    <td>
+                                      <ul>
+                                        {sentiment && sentiment.vectorizedText
+                                          ? sentiment.vectorizedText.map(
+                                              (item, index) => (
+                                                <li key={index}>
+                                                  Index: {item.index}, Score:{" "}
+                                                  {item.score}
+                                                </li>
+                                              )
+                                            )
+                                          : null}
+                                      </ul>
+                                    </td>
+                                  </tr> */}
+                                  <tr>
+                                    <td></td>
+                                    <td>Predicted Sentiment:</td>
+                                    <td>Neutral</td>
+                                  </tr>
+                                </tbody>
+                              </Table>
                             </div>
                           </Dropdown.Item>
                         </Dropdown.Menu>

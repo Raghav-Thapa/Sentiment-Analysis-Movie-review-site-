@@ -88,3 +88,9 @@ body {
 .steps {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.preTitle {
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 16px;
+}

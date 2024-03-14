@@ -128,6 +128,9 @@ const MovieDetail = () => {
     }
     setOpenReviewArea(false);
   };
+  useEffect(() => {
+    setSentimentText("");
+  }, [sentiments]);
 
   const [firstName, ...lastNameArray] =
     detail && detail.name ? detail.name.split(" ") : "";

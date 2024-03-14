@@ -23,9 +23,9 @@ class SentimentController {
       // Run a Python script as a subprocess to make predictions
       const pythonProcess = spawn("python", [
         path.join(__dirname, "../../predict.py"), // Path to Python script
-        JSON.stringify(text), // Pass inputData as a JSON string
+        JSON.stringify(text),
       ]);
-      // Collect predictions from the Python script
+
       let predictions = "";
       pythonProcess.stdout.on("data", (data) => {
         predictions += data.toString();
@@ -35,13 +35,12 @@ class SentimentController {
         console.error(`Python script stderr: ${data}`);
       });
       pythonProcess.on("close", async (code) => {
-         console.log(`Python script exited with code ${code}`);
+        console.log(`Python script exited with code ${code}`);
         if (code === 0) {
           try {
             // console.log(predictions);
             const result = JSON.parse(predictions);
-            console.log(result)
-            // Save the sentiment analysis result to the database
+            console.log(result);
             console.log(result.vectorizedText);
 
             const sentimentResult = new SentimentResult({

@@ -56,7 +56,7 @@ def cleaning(x):
     x = stemming(x)
     return x
 
-# Load the model (replace 'model.pkl' with your model file path)
+# Load the model 
 model = joblib.load('./model.pkl')
 vectorizer = joblib.load('./vectorizer.pkl')
 
@@ -69,7 +69,7 @@ def predict_sentiment(text):
     text_clean = cleaning(text)
     text_vectorized = vectorizer.transform([text_clean])
     vectorized_text = [[int(index), float(score)] for index, score in zip(text_vectorized.nonzero()[1], text_vectorized.data)]
-    sentiment = str(model.predict(text_vectorized)[0])  # Convert to str
+    sentiment = str(model.predict(text_vectorized)[0]) 
     return {
         'sentiment': sentiment,
         'expansion': text_expanded,
@@ -81,9 +81,7 @@ def predict_sentiment(text):
     }
     
 if __name__ == '__main__':
-    # Check if there is at least one command line argument
     if len(sys.argv) > 1:
-        # Combine all command line arguments into a single string
         input_data = ' '.join(sys.argv[1:])
         result = predict_sentiment(input_data)
         print(json.dumps(result))

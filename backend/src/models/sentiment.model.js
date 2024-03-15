@@ -6,11 +6,17 @@ const sentimentResultSchema = new mongoose.Schema({
   text: String,
   sentiment: String,
   timestamp: { type: Date, default: Date.now },
-  movie:{
+  movie: {
     type: mongoose.Types.ObjectId,
     default: null,
-    ref: "Movie"
-},
+    ref: "Movie",
+  },
+  expansion: String,
+  charactersRemoval: String,
+  stopwordsRemoval: String,
+  stemming: String,
+  vectorizedText: [{ index: Number, score: Number }],
+  cleanedText: String,
 });
 
 module.exports = mongoose.model('SentimentResult', sentimentResultSchema);

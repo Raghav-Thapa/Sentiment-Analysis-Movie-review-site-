@@ -4,65 +4,93 @@ body {
     background-color: black !important;
 }
 
-.movieCoverOverlap{
+.movieCoverOverlap {
     margin-top: -450px !important;
     z-index: 1 !important;
     margin-bottom: 100px;
     position: absolute !important;
 }
 
-.bannerheight{
+.bannerheight {
     height: 500px !important;
     opacity: 0.3 !important;
 }
 
-.moviecardd{
+.moviecardd {
     height: 370px !important;
     box-shadow: 10px 10px 15px 7px;
     opacity: 0.75;
 }
 
-.moviecardd:hover{
+.moviecardd:hover {
     opacity: 0.85;
 }
 
-.cardimgg{
+.cardimgg {
     height: 370px !important;
 }
 
-.moviedetail{
+.moviedetail {
     margin-left: 400px;
     margin-top: -15px;
     opacity: 0.8;
 }
 
-.moviename{
+.moviename {
     font-family: 'Luckiest Guy';
 }
 
-.first-word{
+.first-word {
     color: whitesmoke;
 }
-.second-word{
+
+.second-word {
     color: #09b0e7;
 }
 
-.reviewButton{
+.reviewButton {
     margin-left: 70px;
     margin-top: 30px;
 }
 
-.reviewWritingArea{
+.reviewWritingArea {
     margin-left: 70px;
     margin-top: 5px;
 }
 
-.positive{
+.positive {
     color: rgb(68, 173, 68);
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.negative{
+.negative {
     color: rgb(177, 84, 84);
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.neutral {
+    color: rgb(157, 153, 153);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.describe {
+    background-color: red;
+}
+
+.comments {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background-color: #343a40;
+    border: none;
+}
+
+.steps {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.preTitle {
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 16px;
 }
